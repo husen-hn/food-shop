@@ -1,31 +1,23 @@
 import './App.css'
+import FoodList from './components/FoodList'
 import NavBar from './components/NavBar'
 import TabPane from './components/Tab/TabPane'
 import Tabs from './components/Tab/Tabs'
+import { Category } from './utils/category'
 
 function App() {
     return (
         <>
             <NavBar />
+
             <Tabs>
-                <TabPane title="Hot Dishes">
-                    <div>Basic</div>
-                </TabPane>
-                <TabPane title="Cold Dishes">
-                    <div>Standard</div>
-                </TabPane>
-                <TabPane title="Soup">
-                    <div>Premium</div>
-                </TabPane>
-                <TabPane title="Grill">
-                    <div>Premium</div>
-                </TabPane>
-                <TabPane title="Appetizer">
-                    <div>Premium</div>
-                </TabPane>
-                <TabPane title="Dessert">
-                    <div>Premium</div>
-                </TabPane>
+                {(Object.keys(Category) as Array<keyof typeof Category>).map(
+                    (key) => (
+                        <TabPane title={Category[key]}>
+                            <FoodList category={Category[key]} keyword="" />
+                        </TabPane>
+                    )
+                )}
             </Tabs>
         </>
     )

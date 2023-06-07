@@ -1,7 +1,8 @@
 import { ReactElement } from 'react'
+import { Category } from '../../utils/category'
 
 type Props = {
-    title: string
+    title: Category
     children: ReactElement | ReactElement[]
 }
 
