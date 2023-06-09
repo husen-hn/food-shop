@@ -17,7 +17,7 @@ const Tabs = ({ children, preSelectedTabIndex }: Props): JSX.Element => {
             <ul className="flex flex-wrap mx-10">
                 {children.map((item, index) => (
                     <TabTitle
-                        key={item.props.title}
+                        key={item.props.title + 'Tabs'}
                         title={item.props.title}
                         index={index}
                         isActive={index === selectedTabIndex}

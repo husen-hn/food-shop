@@ -26,6 +26,7 @@ const TabTitle = ({
                 className={`${
                     isActive ? activeStyle : normalStyle
                 } font-bold flex  flex-col pb-3 pr-10 pl-3 border-solid border-4 border-t-0 border-l-0 border-r-0 overflow-x-auto `}
+                key={title + 'TabTitle'}
             >
                 <button onClick={handleOnClick}>{title}</button>
             </li>

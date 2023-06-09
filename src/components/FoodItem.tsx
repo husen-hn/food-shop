@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import useImage from '../hooks/useImage'
 
 interface Props {
     imgName: string
@@ -8,24 +8,7 @@ interface Props {
 }
 
 function FoodItem({ imgName, title, price, inventory }: Props) {
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState<unknown>(null)
-    const [image, setImage] = useState<string>('')
-
-    useEffect(() => {
-        const fetchImage = async () => {
-            try {
-                const response = await import(`../assets/${imgName}.png`)
-                setImage(response.default)
-            } catch (err) {
-                setError(err)
-            } finally {
-                setLoading(false)
-            }
-        }
-
-        fetchImage()
-    }, [imgName])
+    const { loading, error, image } = useImage({ imgName: imgName })
 
     return (
         <div className="bg-darkBlack w-70 h-80 rounded-2xl mt-20">
@@ -44,9 +27,10 @@ function FoodItem({ imgName, title, price, inventory }: Props) {
             )}
 
             <div className="flex flex-col items-center">
-                <h1 className="text-white font-bold mt-10 mx-20 text-center">
+                <h1 className="text-white font-bold mt-10 mx-20 text-center line-clamp-2">
                     {title}
                 </h1>
+
                 <h2 className="text-gray font-semibold mt-5">$ {price}</h2>
                 <h2 className="text-grayDark font-semibold mt-5 text-center">
                     {inventory} Bowls available

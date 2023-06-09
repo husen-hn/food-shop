@@ -1,6 +1,9 @@
+import fake_data from '../data/fake_data'
+import useData from '../hooks/useData'
 import { Category } from '../utils/category'
-import { Type } from '../utils/type'
 import FoodItem from './FoodItem'
+import FoodItemSkeleton from './FoodItemSkeleton'
+import TypeSelector from './TypeSelector'
 
 interface Props {
     category: Category
@@ -8,6 +11,11 @@ interface Props {
 }
 
 function FoodList({ category }: Props) {
+    const { data, error, loading } = useData({
+        fData: fake_data,
+        deps: { category: category }
+    })
+
     return (
         <div className="flex flex-col m-10">
             {/* Header */}
@@ -15,91 +23,36 @@ function FoodList({ category }: Props) {
                 <h1 className="text-white text-2xl font-bold mt-5">
                     Choose Dishes
                 </h1>
-                <select className="border-2 border-gray cursor-pointer rounded-lg drop-shadow-md bg-darkBlack text-white duration-300 px-5 py-2">
-                    {(Object.keys(Type) as Array<keyof typeof Type>).map(
-                        (key) => (
-                            <option value={Type[key]}>{Type[key]}</option>
-                        )
-                    )}
-                </select>
+                <TypeSelector />
             </div>
             {/* Body List */}
-            <div className="grid grid-cols-4 gap-4">
-                <FoodItem
-                    imgName="p1"
-                    title="Spicy seasoned seafood noodles"
-                    price="2.29"
-                    inventory={20}
-                />
-                <FoodItem
-                    imgName="p1"
-                    title="Spicy seasoned seafood noodles"
-                    price="2.29"
-                    inventory={20}
-                />
-                <FoodItem
-                    imgName="p1"
-                    title="Spicy seasoned seafood noodles"
-                    price="2.29"
-                    inventory={20}
-                />
-                <FoodItem
-                    imgName="p1"
-                    title="Spicy seasoned seafood noodles"
-                    price="2.29"
-                    inventory={20}
-                />
-                <FoodItem
-                    imgName="p1"
-                    title="Spicy seasoned seafood noodles"
-                    price="2.29"
-                    inventory={20}
-                />
-                <FoodItem
-                    imgName="p1"
-                    title="Spicy seasoned seafood noodles"
-                    price="2.29"
-                    inventory={20}
-                />
-                <FoodItem
-                    imgName="p1"
-                    title="Spicy seasoned seafood noodles"
-                    price="2.29"
-                    inventory={20}
-                />
-                <FoodItem
-                    imgName="p1"
-                    title="Spicy seasoned seafood noodles"
-                    price="2.29"
-                    inventory={20}
-                />
-                <FoodItem
-                    imgName="p1"
-                    title="Spicy seasoned seafood noodles"
-                    price="2.29"
-                    inventory={20}
-                />
-                <FoodItem
-                    imgName="p1"
-                    title="Spicy seasoned seafood noodles"
-                    price="2.29"
-                    inventory={20}
-                />
-                <FoodItem
-                    imgName="p1"
-                    title="Spicy seasoned seafood noodles"
-                    price="2.29"
-                    inventory={20}
-                />
-
-                <div>2</div>
-                <div>3</div>
-                <div>4</div>
-                <div>5</div>
-                <div>6</div>
-                <div>7</div>
-                <div>8</div>
-            </div>
+            {loading ? (
+                <div className="grid grid-cols-4 gap-4">
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map(() => (
+                        <FoodItemSkeleton />
+                    ))}
+                </div>
+            ) : error ? (
+                <h2 className="text-gray text-2xl font-bold w-screen">
+                    {error}
+                </h2>
+            ) : data.length === 0 ? (
+                <h2 className="text-gray text-2xl font-bold w-screen">
+                    There are no food items
+                </h2>
+            ) : (
+                <div className="grid grid-cols-4 gap-4">
+                    {data.map((food) => (
+                        <FoodItem
+                            key={food.title + food.price + food.inventory}
+                            imgName={food.image}
+                            title={food.title}
+                            price={food.price}
+                            inventory={food.inventory}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     )
 }

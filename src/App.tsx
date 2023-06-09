@@ -13,7 +13,10 @@ function App() {
             <Tabs>
                 {(Object.keys(Category) as Array<keyof typeof Category>).map(
                     (key) => (
-                        <TabPane title={Category[key]}>
+                        <TabPane
+                            title={Category[key]}
+                            key={Category[key] + 'App'}
+                        >
                             <FoodList category={Category[key]} keyword="" />
                         </TabPane>
                     )

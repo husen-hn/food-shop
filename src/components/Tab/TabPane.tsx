@@ -6,6 +6,8 @@ type Props = {
     children: ReactElement | ReactElement[]
 }
 
-const TabPane = ({ children }: Props): JSX.Element => <div>{children}</div>
+const TabPane = ({ title, children }: Props): JSX.Element => (
+    <div>{children}</div>
+)
 
 export default TabPane

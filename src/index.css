@@ -3,5 +3,11 @@
 @tailwind utilities;
 
 :root {
-    background: #1C1E26
+    background: #1C1E26;
+    scrollbar-color: #6C6F93 #1C1E26;
+}
+
+::selection {
+    color: #FDF0ED;
+    background: #6C6F93;
 }
