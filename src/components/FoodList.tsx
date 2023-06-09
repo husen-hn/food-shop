@@ -1,5 +1,6 @@
 import { Category } from '../utils/category'
 import { Type } from '../utils/type'
+import FoodItem from './FoodItem'
 
 interface Props {
     category: Category
@@ -9,7 +10,8 @@ interface Props {
 function FoodList({ category }: Props) {
     return (
         <div className="flex flex-col m-10">
-            <div className="flex flex-row items-center justify-between">
+            {/* Header */}
+            <div className="flex flex-row mb-20 items-center justify-between">
                 <h1 className="text-white text-2xl font-bold mt-5">
                     Choose Dishes
                 </h1>
@@ -21,7 +23,83 @@ function FoodList({ category }: Props) {
                     )}
                 </select>
             </div>
-            <div></div>
+            {/* Body List */}
+            <div className="grid grid-cols-4 gap-4">
+                <FoodItem
+                    imgName="p1"
+                    title="Spicy seasoned seafood noodles"
+                    price="2.29"
+                    inventory={20}
+                />
+                <FoodItem
+                    imgName="p1"
+                    title="Spicy seasoned seafood noodles"
+                    price="2.29"
+                    inventory={20}
+                />
+                <FoodItem
+                    imgName="p1"
+                    title="Spicy seasoned seafood noodles"
+                    price="2.29"
+                    inventory={20}
+                />
+                <FoodItem
+                    imgName="p1"
+                    title="Spicy seasoned seafood noodles"
+                    price="2.29"
+                    inventory={20}
+                />
+                <FoodItem
+                    imgName="p1"
+                    title="Spicy seasoned seafood noodles"
+                    price="2.29"
+                    inventory={20}
+                />
+                <FoodItem
+                    imgName="p1"
+                    title="Spicy seasoned seafood noodles"
+                    price="2.29"
+                    inventory={20}
+                />
+                <FoodItem
+                    imgName="p1"
+                    title="Spicy seasoned seafood noodles"
+                    price="2.29"
+                    inventory={20}
+                />
+                <FoodItem
+                    imgName="p1"
+                    title="Spicy seasoned seafood noodles"
+                    price="2.29"
+                    inventory={20}
+                />
+                <FoodItem
+                    imgName="p1"
+                    title="Spicy seasoned seafood noodles"
+                    price="2.29"
+                    inventory={20}
+                />
+                <FoodItem
+                    imgName="p1"
+                    title="Spicy seasoned seafood noodles"
+                    price="2.29"
+                    inventory={20}
+                />
+                <FoodItem
+                    imgName="p1"
+                    title="Spicy seasoned seafood noodles"
+                    price="2.29"
+                    inventory={20}
+                />
+
+                <div>2</div>
+                <div>3</div>
+                <div>4</div>
+                <div>5</div>
+                <div>6</div>
+                <div>7</div>
+                <div>8</div>
+            </div>
         </div>
     )
 }
