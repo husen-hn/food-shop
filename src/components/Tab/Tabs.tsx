@@ -1,16 +1,25 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement, useCallback, useState } from 'react'
 import TabTitle, { Props as TabTitleProps } from './TabTitle'
 
 type Props = {
     children: ReactElement<TabTitleProps>[]
     preSelectedTabIndex?: number
+    tabSelection: () => void
 }
 
-const Tabs = ({ children, preSelectedTabIndex }: Props): JSX.Element => {
+const Tabs = ({
+    children,
+    preSelectedTabIndex,
+    tabSelection
+}: Props): JSX.Element => {
     // First tab is shown by default
     const [selectedTabIndex, setSelectedTabIndex] = useState<number>(
         preSelectedTabIndex || 0
     )
+
+    const handleTabSelection = useCallback(() => {
+        tabSelection()
+    }, [tabSelection])
 
     return (
         <div className="m-6">
@@ -21,7 +30,10 @@ const Tabs = ({ children, preSelectedTabIndex }: Props): JSX.Element => {
                         title={item.props.title}
                         index={index}
                         isActive={index === selectedTabIndex}
-                        setSelectedTab={setSelectedTabIndex}
+                        setSelectedTab={(index) => {
+                            setSelectedTabIndex(index)
+                            handleTabSelection()
+                        }}
                     />
                 ))}
             </ul>

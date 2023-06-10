@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import fake_data from '../data/fake_data'
 import useData from '../hooks/useData'
 import { Category } from '../utils/category'
@@ -9,17 +9,23 @@ import TypeSelector from './TypeSelector'
 interface Props {
     category: Category
     keyword: string
+    typeSelection: () => void
 }
 
-function FoodList({ category }: Props) {
+function FoodList({ category, keyword, typeSelection }: Props) {
     const [foodType, setFoodType] = useState('Breakfast')
     const { data, error, loading } = useData({
         fData: fake_data,
         deps: {
-            category: category,
+            keyword,
+            category,
             type: foodType
         }
     })
+
+    const handleTypeSelection = useCallback(() => {
+        typeSelection()
+    }, [typeSelection])
 
     return (
         <div className="flex flex-col m-10">
@@ -28,7 +34,12 @@ function FoodList({ category }: Props) {
                 <h1 className="text-white text-2xl font-bold mt-5">
                     Choose Dishes
                 </h1>
-                <TypeSelector selected={(value) => setFoodType(value)} />
+                <TypeSelector
+                    selected={(value) => {
+                        setFoodType(value)
+                        handleTypeSelection()
+                    }}
+                />
             </div>
             {/* Body List */}
             {loading ? (

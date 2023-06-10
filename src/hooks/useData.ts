@@ -10,6 +10,7 @@ interface FData {
 }
 
 interface FDataDeps {
+    keyword: string
     category: string
     type: string
 }
@@ -34,7 +35,10 @@ function useData({ fData, deps }: FDataType) {
                     fData.filter(
                         (food) =>
                             food.categories.includes(deps.category) &&
-                            food.types.includes(deps.type)
+                            food.types.includes(deps.type) &&
+                            food.title
+                                .toLocaleLowerCase()
+                                .includes(deps.keyword.toLocaleLowerCase())
                     )
                 )
                 setLoading(false)
@@ -44,7 +48,7 @@ function useData({ fData, deps }: FDataType) {
         }
 
         return () => controller.abort()
-    }, [deps.type])
+    }, [deps.type, deps.keyword])
 
     return { data, error, loading }
 }
