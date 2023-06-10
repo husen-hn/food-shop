@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import fake_data from '../data/fake_data'
 import useData from '../hooks/useData'
 import { Category } from '../utils/category'
@@ -11,9 +12,13 @@ interface Props {
 }
 
 function FoodList({ category }: Props) {
+    const [foodType, setFoodType] = useState('Breakfast')
     const { data, error, loading } = useData({
         fData: fake_data,
-        deps: { category: category }
+        deps: {
+            category: category,
+            type: foodType
+        }
     })
 
     return (
@@ -23,13 +28,13 @@ function FoodList({ category }: Props) {
                 <h1 className="text-white text-2xl font-bold mt-5">
                     Choose Dishes
                 </h1>
-                <TypeSelector />
+                <TypeSelector selected={(value) => setFoodType(value)} />
             </div>
             {/* Body List */}
             {loading ? (
                 <div className="grid grid-cols-4 gap-4">
                     {[1, 2, 3, 4, 5, 6, 7, 8].map(() => (
-                        <FoodItemSkeleton />
+                        <FoodItemSkeleton key={crypto.randomUUID()} />
                     ))}
                 </div>
             ) : error ? (

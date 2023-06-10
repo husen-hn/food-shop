@@ -11,6 +11,7 @@ interface FData {
 
 interface FDataDeps {
     category: string
+    type: string
 }
 
 interface FDataType {
@@ -30,8 +31,10 @@ function useData({ fData, deps }: FDataType) {
         try {
             setTimeout(() => {
                 setData(
-                    fData.filter((food) =>
-                        food.categories.includes(deps.category)
+                    fData.filter(
+                        (food) =>
+                            food.categories.includes(deps.category) &&
+                            food.types.includes(deps.type)
                     )
                 )
                 setLoading(false)
@@ -41,7 +44,7 @@ function useData({ fData, deps }: FDataType) {
         }
 
         return () => controller.abort()
-    }, [])
+    }, [deps.type])
 
     return { data, error, loading }
 }
