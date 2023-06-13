@@ -38,7 +38,7 @@ function useData({ fData, deps }: FDataType) {
                             food.types.includes(deps.type) &&
                             food.title
                                 .toLocaleLowerCase()
-                                .includes(deps.keyword.toLocaleLowerCase())
+                                .includes(deps.keyword)
                     )
                 )
                 setLoading(false)

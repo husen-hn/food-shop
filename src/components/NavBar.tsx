@@ -3,15 +3,16 @@ import Input from './Input'
 import { useCallback } from 'react'
 
 interface Props {
-    onSearchTextChange: (text: string) => void
+    searchInputValue: string
+    setSearchInputValue: (value: string) => void
 }
 
-function NavBar({ onSearchTextChange }: Props) {
+function NavBar({ searchInputValue, setSearchInputValue }: Props) {
     const handleSearchOnChange = useCallback(
         (value: string) => {
-            onSearchTextChange(value)
+            setSearchInputValue(value)
         },
-        [onSearchTextChange]
+        [setSearchInputValue]
     )
 
     return (
@@ -27,9 +28,8 @@ function NavBar({ onSearchTextChange }: Props) {
                 </div>
                 <div className="flex my-auto">
                     <Input
-                        onSearchTextChange={(value) =>
-                            handleSearchOnChange(value)
-                        }
+                        value={searchInputValue}
+                        setValue={handleSearchOnChange}
                     />
                     <button className="text-4xl text-white pl-5 mb-5">
                         <AiOutlineShoppingCart />

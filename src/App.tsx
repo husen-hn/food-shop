@@ -12,10 +12,8 @@ function App() {
     return (
         <>
             <NavBar
-                onSearchTextChange={(value) => {
-                    console.log(value)
-                    setSearchText(value)
-                }}
+                searchInputValue={searchText}
+                setSearchInputValue={(value) => setSearchText(value)}
             />
 
             <Tabs tabSelection={() => setSearchText('')}>
@@ -36,6 +34,10 @@ function App() {
             </Tabs>
         </>
     )
+}
+
+function delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 export default App

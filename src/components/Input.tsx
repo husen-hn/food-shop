@@ -1,22 +1,17 @@
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { LuSearch } from 'react-icons/lu'
 
-function delay(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms))
-}
-
 interface Props {
-    onSearchTextChange: (text: string) => void
+    value: string
+    setValue: (value: string) => void
 }
 
-function Input({ onSearchTextChange }: Props) {
-    const [value, setValue] = useState('')
-
-    const handleOnChange = useCallback(
+function Input({ value, setValue }: Props) {
+    const handleSetValue = useCallback(
         (value: string) => {
-            onSearchTextChange(value)
+            setValue(value)
         },
-        [onSearchTextChange]
+        [setValue]
     )
 
     return (
@@ -29,10 +24,7 @@ function Input({ onSearchTextChange }: Props) {
                     placeholder="Search for food, coffe, etc..."
                     value={value}
                     onChange={async (e) => {
-                        setValue(e.target.value)
-                        await delay(1000).then(() =>
-                            handleOnChange(e.target.value)
-                        )
+                        handleSetValue(e.target.value)
                     }}
                 />
             </div>
