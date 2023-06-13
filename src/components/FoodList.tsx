@@ -31,7 +31,7 @@ function FoodList({ category, keyword, typeSelection }: Props) {
         <div className="flex flex-col m-10">
             {/* Header */}
             <div className="flex flex-row mb-20 items-center justify-between">
-                <h1 className="text-white text-2xl font-bold mt-5">
+                <h1 className="text-white sm:text-lg md:text-2xl font-bold mt-5">
                     Choose Dishes
                 </h1>
                 <TypeSelector
@@ -43,7 +43,7 @@ function FoodList({ category, keyword, typeSelection }: Props) {
             </div>
             {/* Body List */}
             {loading ? (
-                <div className="grid grid-cols-4 gap-4">
+                <div className="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {[1, 2, 3, 4, 5, 6, 7, 8].map(() => (
                         <FoodItemSkeleton key={crypto.randomUUID()} />
                     ))}
@@ -57,7 +57,7 @@ function FoodList({ category, keyword, typeSelection }: Props) {
                     There are no food items
                 </h2>
             ) : (
-                <div className="grid grid-cols-4 gap-4">
+                <div className="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {data.map((food) => (
                         <FoodItem
                             key={food.title + food.price + food.inventory}

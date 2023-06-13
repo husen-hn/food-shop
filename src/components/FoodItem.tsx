@@ -11,7 +11,7 @@ function FoodItem({ imgName, title, price, inventory }: Props) {
     const { loading, error, image } = useImage({ imgName: imgName })
 
     return (
-        <div className="bg-darkBlack w-70 h-80 rounded-2xl mt-20">
+        <div className="bg-darkBlack items-center w-70 h-80 rounded-2xl mt-20">
             {loading ? (
                 <div className="bg-white w-40 h-40 -mt-20 ml-20 mr-20 rounded-full" />
             ) : error ? (
@@ -20,14 +20,14 @@ function FoodItem({ imgName, title, price, inventory }: Props) {
                 </div>
             ) : (
                 <img
-                    className="w-40 h-40 -mt-20 ml-20 mr-20 rounded-full"
+                    className="w-40 h-40 -mt-20 rounded-full mx-40 md:mx-12 lg:mx-20 "
                     src={image}
                     alt={title}
                 />
             )}
 
             <div className="flex flex-col items-center">
-                <h1 className="text-white font-bold mt-10 mx-20 text-center line-clamp-2">
+                <h1 className="text-white font-bold mx-20 text-center mt-10 line-clamp-2">
                     {title}
                 </h1>
 

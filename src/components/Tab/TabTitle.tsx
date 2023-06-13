@@ -25,10 +25,12 @@ const TabTitle = ({
             <li
                 className={`${
                     isActive ? activeStyle : normalStyle
-                } font-bold flex  flex-col pb-3 pr-10 pl-3 border-solid border-4 border-t-0 border-l-0 border-r-0 overflow-x-auto `}
+                }  font-bold flex  flex-col pb-3 pr-10 pl-3 border-solid border-4 border-t-0 border-l-0 border-r-0`}
                 key={title + 'TabTitle'}
             >
-                <button onClick={handleOnClick}>{title}</button>
+                <button onClick={handleOnClick} className="w-24 line-clamp-1">
+                    {title}
+                </button>
             </li>
         </>
     )

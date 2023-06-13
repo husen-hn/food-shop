@@ -17,8 +17,8 @@ function NavBar({ searchInputValue, setSearchInputValue }: Props) {
 
     return (
         <nav className="relative container mx-auto p-6">
-            <div className="flex flex-wrap justify-between">
-                <div className="flex flex-col ">
+            <div className="flex flex-col md:flex-row justify-between">
+                <div className="flex flex-col">
                     <h1 className="text-white font-bold text-2xl">
                         Jaegar Resto
                     </h1>
@@ -26,7 +26,7 @@ function NavBar({ searchInputValue, setSearchInputValue }: Props) {
                         Tuesday, 2 Feb 2023
                     </p>
                 </div>
-                <div className="flex my-auto">
+                <div className="flex my-auto mt-5 md:mt-0">
                     <Input
                         value={searchInputValue}
                         setValue={handleSearchOnChange}

@@ -22,8 +22,8 @@ const Tabs = ({
     }, [tabSelection])
 
     return (
-        <div className="m-6">
-            <ul className="flex flex-wrap mx-10">
+        <div className="h-6 my-6 hide-scrollbar">
+            <ul className="flex flex-row mx-10 overflow-x-auto">
                 {children.map((item, index) => (
                     <TabTitle
                         key={item.props.title + 'Tabs'}

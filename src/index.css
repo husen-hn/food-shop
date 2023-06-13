@@ -11,3 +11,8 @@
     color: #FDF0ED;
     background: #6C6F93;
 }
+
+.hide-scrollbar {
+    background: transparent;
+    scrollbar-color: transparent transparent;
+}
