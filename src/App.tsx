@@ -11,10 +11,7 @@ function App() {
 
     return (
         <>
-            <NavBar
-                searchInputValue={searchText}
-                setSearchInputValue={(value) => setSearchText(value)}
-            />
+            <NavBar setSearchInputValue={(value) => setSearchText(value)} />
 
             <Tabs tabSelection={() => setSearchText('')}>
                 {(Object.keys(Category) as Array<keyof typeof Category>).map(

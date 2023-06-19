@@ -1,18 +1,16 @@
-import { useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { LuSearch } from 'react-icons/lu'
+import { useDebounce } from '../hooks/useDebounce'
 
 interface Props {
-    value: string
-    setValue: (value: string) => void
+    setSearchValue: (value: string) => void
 }
 
-function Input({ value, setValue }: Props) {
-    const handleSetValue = useCallback(
-        (value: string) => {
-            setValue(value)
-        },
-        [setValue]
-    )
+function Input({ setSearchValue }: Props) {
+    const [value, setValue] = useState('')
+    useDebounce(() => {
+        setSearchValue(value)
+    }, 1000)
 
     return (
         <div>
@@ -24,7 +22,7 @@ function Input({ value, setValue }: Props) {
                     placeholder="Search for food, coffe, etc..."
                     value={value}
                     onChange={async (e) => {
-                        handleSetValue(e.target.value)
+                        setValue(e.target.value)
                     }}
                 />
             </div>
