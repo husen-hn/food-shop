@@ -49,11 +49,11 @@ function FoodList({ category, keyword, typeSelection }: Props) {
                     ))}
                 </div>
             ) : error ? (
-                <h2 className="text-gray text-2xl font-bold w-screen">
+                <h2 className="text-grayLight text-2xl font-bold w-full">
                     {error}
                 </h2>
             ) : data.length === 0 ? (
-                <h2 className="text-gray text-2xl font-bold w-screen">
+                <h2 className="text-grayLight text-2xl font-bold w-full">
                     There are no food items
                 </h2>
             ) : (

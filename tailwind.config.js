@@ -4,19 +4,42 @@ export default {
     theme: {
         extend: {
             colors: {
-                dark: '#1C1E26',
-                darkLight: '#232530',
-                darkBlack: '#16161C',
-                grayDark: '#2E303E',
-                gray: '#6C6F93',
-                white: '#FDF0ED',
-                red: '#F43E5C'
+                dark: '#1f1d2b',
+                darkLight: '#252837',
+                gray: '#2e303f',
+                grayLight: '#7c808b',
+                white: '#fefeff',
+                red: '#ea7d69'
             },
             fontFamily: {
                 sans: ['Poppins', 'sans-serif']
             },
             spacing: {
                 180: '32rem'
+            },
+            keyframes: {
+                wiggle: {
+                    '0%, 100%': {
+                        transform: 'rotate(-3deg)'
+                    },
+                    '50%': {
+                        transform: 'rotate(3deg)'
+                    }
+                },
+                'fade-in-up': {
+                    '0%': {
+                        opacity: '0',
+                        transform: 'translateY(20px)'
+                    },
+                    '100%': {
+                        opacity: '1',
+                        transform: 'translateY(0)'
+                    }
+                }
+            },
+            animation: {
+                wiggle: 'wiggle 4s ease-in-out infinite',
+                'fade-in-up': 'fade-in-up 0.5s ease-out'
             }
         }
     },

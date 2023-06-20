@@ -12,9 +12,10 @@ function TypeSelector({ selected }: Props) {
         },
         [selected]
     )
+
     return (
         <select
-            className="border-2 border-gray cursor-pointer rounded-lg drop-shadow-md bg-darkBlack text-white duration-300 px-5 py-2 text-sm sm:text-md"
+            className="border-2 border-gray cursor-pointer rounded-lg drop-shadow-md bg-dark text-white duration-300 pl-5 py-3 text-lg sm:text-md"
             onChange={(e) => handleOnChange(e.target.value)}
         >
             {(Object.keys(Type) as Array<keyof typeof Type>).map((key) => (

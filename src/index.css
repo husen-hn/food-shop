@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-    background: #1C1E26;
-    scrollbar-color: #6C6F93 #1C1E26;
+    background: #252837;
+    scrollbar-color: #ea7d69 #252837;
 }
 
 ::selection {
-    color: #FDF0ED;
-    background: #6C6F93;
+    color: #252837;
+    background: #eb7c69;
 }
 
 .hide-scrollbar {

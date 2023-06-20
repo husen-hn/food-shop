@@ -1,6 +1,7 @@
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import Input from './Input'
 import { useCallback } from 'react'
+import moment from 'moment'
 
 interface Props {
     setSearchInputValue: (value: string) => void
@@ -14,6 +15,8 @@ function NavBar({ setSearchInputValue }: Props) {
         [setSearchInputValue]
     )
 
+    const currentDate = moment().format('MMMM Do YYYY')
+
     return (
         <nav className="relative container mx-auto p-6">
             <div className="flex flex-col md:flex-row justify-between">
@@ -21,13 +24,11 @@ function NavBar({ setSearchInputValue }: Props) {
                     <h1 className="text-white font-bold text-2xl">
                         Jaegar Resto
                     </h1>
-                    <p className="text-gray font-semibold">
-                        Tuesday, 2 Feb 2023
-                    </p>
+                    <p className="text-grayLight">{currentDate}</p>
                 </div>
                 <div className="flex my-auto mt-5 md:mt-0">
                     <Input setSearchValue={handleSearchOnChange} />
-                    <button className="text-4xl text-white pl-5 mb-5">
+                    <button className="text-4xl text-white pl-5 mb-5 animate-wiggle">
                         <AiOutlineShoppingCart />
                     </button>
                 </div>
