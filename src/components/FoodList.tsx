@@ -4,7 +4,8 @@ import useData from '../hooks/useData'
 import { Category } from '../utils/category'
 import FoodItem from './FoodItem'
 import FoodItemSkeleton from './FoodItemSkeleton'
-import TypeSelector from './TypeSelector'
+import DropDown from './DropDown'
+import { Type } from '../utils/type'
 
 interface Props {
     category: Category
@@ -34,7 +35,10 @@ function FoodList({ category, keyword, typeSelection }: Props) {
                 <h1 className="text-white sm:text-lg md:text-2xl font-bold mt-5">
                     Choose Dishes
                 </h1>
-                <TypeSelector
+                <DropDown
+                    options={(
+                        Object.keys(Type) as Array<keyof typeof Type>
+                    ).map((key) => Type[key])}
                     selected={(value) => {
                         setFoodType(value)
                         handleTypeSelection()
