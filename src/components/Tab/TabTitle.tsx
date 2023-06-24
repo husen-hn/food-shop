@@ -18,19 +18,27 @@ const TabTitle = ({
         setSelectedTab(index)
     }, [setSelectedTab, index])
 
-    const activeStyle = 'text-red border-red'
-    const normalStyle = 'text-white border-gray'
+    const activeStyle = 'text-red'
+    const normalStyle = 'text-white'
     return (
         <>
             <li
                 className={`${
                     isActive ? activeStyle : normalStyle
-                }  font-bold flex  flex-col pb-3 pr-10 pl-3 border-solid border-4 border-t-0 border-l-0 border-r-0`}
+                }  font-bold flex  flex-col pb-3 pr-10 pl-3`}
                 key={title + 'TabTitle'}
             >
-                <button onClick={handleOnClick} className="w-24 line-clamp-1">
+                <button
+                    onClick={handleOnClick}
+                    className="w-24 line-clamp-1 text-start"
+                >
                     {title}
                 </button>
+                <div
+                    className={`${
+                        isActive ? 'animate-fade-in-left bg-red' : 'hidden'
+                    } mt-3 w-12 h-1  rounded-lg`}
+                ></div>
             </li>
         </>
     )
