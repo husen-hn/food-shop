@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { useOutsideClick } from '../hooks/useOutsideClick'
 
 interface Props {
     options: string[]
@@ -8,8 +9,15 @@ interface Props {
 function DropDown({ options, selected }: Props) {
     const [dpDisplay, setDpDisplay] = useState(false)
     const [selectedOp, setSelectedOp] = useState(options[0])
+    const ref = useRef<HTMLDivElement>(null)
+
+    useOutsideClick(ref, () => {
+        setDpDisplay(false)
+    })
+
     return (
         <div
+            ref={ref}
             className="inline-flex bg-dark border-[2px] border-gray rounded-lg"
             onClick={() => setDpDisplay(!dpDisplay)}
         >
@@ -33,28 +41,29 @@ function DropDown({ options, selected }: Props) {
                         />
                     </svg>
                 </button>
-
-                <div
-                    className={`${
-                        dpDisplay ? '' : 'hidden'
-                    } absolute -right-24 z-10 w-44 mt-2 origin-top-right bg-dark border border-gray rounded-lg shadow-lg text-white p-1`}
-                >
-                    {options.map((option) => (
-                        <div className="">
-                            <a
-                                href=""
-                                className="block px-4 py-2 text-sm rounded-lg hover:bg-gray"
-                                onClick={(e) => {
-                                    e.preventDefault()
-                                    setSelectedOp(option)
-                                    selected(option)
-                                }}
-                            >
-                                {option}
-                            </a>
-                        </div>
-                    ))}
-                </div>
+                {dpDisplay ? (
+                    <div
+                        className={
+                            'absolute -right-24 z-10 w-44 mt-2 origin-top-right bg-dark border border-gray rounded-lg shadow-lg text-white p-1'
+                        }
+                    >
+                        {options.map((option) => (
+                            <div key={option} className="">
+                                <a
+                                    href=""
+                                    className="block px-4 py-2 text-sm rounded-lg hover:bg-gray"
+                                    onClick={(e) => {
+                                        e.preventDefault()
+                                        setSelectedOp(option)
+                                        selected(option)
+                                    }}
+                                >
+                                    {option}
+                                </a>
+                            </div>
+                        ))}
+                    </div>
+                ) : null}
             </div>
             <a
                 href="#"
