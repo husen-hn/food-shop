@@ -20,7 +20,7 @@ function FoodItem({ imgName, title, price, inventory }: Props) {
                 </div>
             ) : (
                 <img
-                    className="w-56 h-56 -mt-20 mx-16 md:mx-6 lg:mx-12 rounded-full"
+                    className="w-56 h-56 -mt-20 mx-auto rounded-full"
                     src={image}
                     alt={title}
                 />

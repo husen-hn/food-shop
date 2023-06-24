@@ -23,7 +23,7 @@ const Tabs = ({
 
     return (
         <>
-            <div className="h-6 my-6 hide-scrollbar">
+            <div className="h-6 my-6 hide-scrollbar scroll-auto">
                 <ul className="flex flex-row mx-10 overflow-x-auto">
                     {children.map((item, index) => (
                         <TabTitle
