@@ -5,6 +5,7 @@ import NavBar from './components/NavBar'
 import TabPane from './components/Tab/TabPane'
 import Tabs from './components/Tab/Tabs'
 import { Category } from './utils/category'
+import Footer from './components/Footer'
 
 function App() {
     const [searchText, setSearchText] = useState('')
@@ -29,6 +30,8 @@ function App() {
                     )
                 )}
             </Tabs>
+
+            <Footer />
         </>
     )
 }

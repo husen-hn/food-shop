@@ -19,12 +19,8 @@ export default {
             },
             keyframes: {
                 wiggle: {
-                    '0%, 100%': {
-                        transform: 'rotate(-3deg)'
-                    },
-                    '50%': {
-                        transform: 'rotate(3deg)'
-                    }
+                    '0%, 100%': { transform: 'rotate(-10deg)' },
+                    '50%': { transform: 'rotate(10deg)' }
                 },
                 'fade-in-up': {
                     '0%': {
@@ -48,11 +44,12 @@ export default {
                 }
             },
             animation: {
-                wiggle: 'wiggle 4s ease-in-out infinite',
+                wiggle: 'wiggle 300ms ease-in-out',
                 'fade-in-up': 'fade-in-up 0.5s ease-out',
                 'fade-in-left': 'fade-in-left 0.5s ease-out'
             }
         }
     },
-    plugins: []
+    plugins: [],
+    darkMode: 'class'
 }

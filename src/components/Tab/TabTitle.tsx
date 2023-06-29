@@ -25,7 +25,7 @@ const TabTitle = ({
             <li
                 className={`${
                     isActive ? activeStyle : normalStyle
-                }  font-bold flex  flex-col pb-3 pr-10 pl-3`}
+                } flex  flex-col pb-3 pl-6`}
                 key={title + 'TabTitle'}
             >
                 <button
@@ -37,7 +37,7 @@ const TabTitle = ({
                 <div
                     className={`${
                         isActive ? 'animate-fade-in-left bg-red' : 'hidden'
-                    } mt-3 w-12 h-1  rounded-lg`}
+                    } mt-3 w-20 h-1  rounded-lg`}
                 ></div>
             </li>
         </>

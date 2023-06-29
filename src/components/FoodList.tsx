@@ -6,6 +6,8 @@ import FoodItem from './FoodItem'
 import FoodItemSkeleton from './FoodItemSkeleton'
 import DropDown from './DropDown'
 import { Type } from '../utils/type'
+import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { BsFillMoonFill, BsSun } from 'react-icons/bs'
 
 interface Props {
     category: Category
@@ -15,6 +17,9 @@ interface Props {
 
 function FoodList({ category, keyword, typeSelection }: Props) {
     const [foodType, setFoodType] = useState('Breakfast')
+    const [dark, setDark] = useState(true)
+    const [effect, setEffect] = useState(false)
+
     const { data, error, loading } = useData({
         fData: fake_data,
         deps: {
@@ -32,10 +37,10 @@ function FoodList({ category, keyword, typeSelection }: Props) {
         <div className="flex flex-col m-10">
             {/* Header */}
             <div className="flex flex-row mb-20 items-center justify-between">
-                <h1 className="text-white sm:text-lg md:text-2xl font-bold mt-5">
+                <h1 className="text-white sm:text-lg md:text-2xl mt-5">
                     Choose Dishes
                 </h1>
-                <DropDown
+                {/* <DropDown
                     options={(
                         Object.keys(Type) as Array<keyof typeof Type>
                     ).map((key) => Type[key])}
@@ -43,7 +48,24 @@ function FoodList({ category, keyword, typeSelection }: Props) {
                         setFoodType(value)
                         handleTypeSelection()
                     }}
-                />
+                /> */}
+                <div>
+                    <button className="bg-dark text-xl text-white p-2 border-2 border-gray rounded-md ">
+                        <AiOutlineShoppingCart />
+                    </button>
+                    <button
+                        className={`${
+                            effect && 'animate-wiggle'
+                        } bg-dark text-xl text-white p-2 border-2 border-gray rounded-md`}
+                        onClick={() => {
+                            setDark(!dark)
+                            setEffect(true)
+                        }}
+                        onAnimationEnd={() => setEffect(false)}
+                    >
+                        {dark ? <BsSun /> : <BsFillMoonFill />}
+                    </button>
+                </div>
             </div>
             {/* Body List */}
             {loading ? (

@@ -42,7 +42,7 @@ const Tabs = ({
                 {/* show selcted tab by index*/}
                 {children[selectedTabIndex]}
             </div>
-            <hr className="h-px mx-[52px] -mt-3 bg-grayLight border-0" />
+            <hr className="h-px mx-[63px] -mt-3 bg-grayLight border-0" />
         </>
     )
 }
