@@ -1,37 +1,37 @@
 import { useCallback, useState } from 'react'
-import fake_data from '../data/fake_data'
-import useData from '../hooks/useData'
-import { Category } from '../utils/category'
+import { FData } from '../hooks/useData'
 import FoodItem from './FoodItem'
 import FoodItemSkeleton from './FoodItemSkeleton'
 import DropDown from './DropDown'
-import { Type } from '../utils/type'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { BsFillMoonFill, BsSun } from 'react-icons/bs'
 
 interface Props {
-    category: Category
-    keyword: string
-    typeSelection: () => void
+    data: FData[]
+    error: string
+    loading: boolean
+    foodTypes: string[]
+    foodTypeSelected: string
+    foodTypeSelection: (value: string) => void
 }
 
-function FoodList({ category, keyword, typeSelection }: Props) {
-    const [foodType, setFoodType] = useState('Breakfast')
+function FoodList({
+    data,
+    error,
+    loading,
+    foodTypeSelection,
+    foodTypeSelected,
+    foodTypes
+}: Props) {
     const [dark, setDark] = useState(true)
     const [effect, setEffect] = useState(false)
 
-    const { data, error, loading } = useData({
-        fData: fake_data,
-        deps: {
-            keyword,
-            category,
-            type: foodType
-        }
-    })
-
-    const handleTypeSelection = useCallback(() => {
-        typeSelection()
-    }, [typeSelection])
+    const handleFoodTypeSelection = useCallback(
+        (value: string) => {
+            foodTypeSelection(value)
+        },
+        [foodTypeSelection]
+    )
 
     return (
         <div className="flex flex-col m-10">
@@ -40,23 +40,20 @@ function FoodList({ category, keyword, typeSelection }: Props) {
                 <h1 className="text-white sm:text-lg md:text-2xl mt-5">
                     Choose Dishes
                 </h1>
-                {/* <DropDown
-                    options={(
-                        Object.keys(Type) as Array<keyof typeof Type>
-                    ).map((key) => Type[key])}
-                    selected={(value) => {
-                        setFoodType(value)
-                        handleTypeSelection()
-                    }}
-                /> */}
-                <div>
-                    <button className="bg-dark text-xl text-white p-2 border-2 border-gray rounded-md ">
+
+                <div className="justify-center ">
+                    <DropDown
+                        options={foodTypes.map((key) => key)}
+                        selected={foodTypeSelected}
+                        setSelected={(value) => handleFoodTypeSelection(value)}
+                    />
+                    <button className="inline-flex items-center justify-center h-full ml-1 pl-2 bg-dark text-xl text-white p-2 py-[11px] border-2 border-gray rounded-md">
                         <AiOutlineShoppingCart />
                     </button>
                     <button
                         className={`${
                             effect && 'animate-wiggle'
-                        } bg-dark text-xl text-white p-2 border-2 border-gray rounded-md`}
+                        } ml-1 inline-flex items-center justify-center h-full pl-2 bg-dark text-xl text-white p-2 py-[11px] border-2 border-gray rounded-md`}
                         onClick={() => {
                             setDark(!dark)
                             setEffect(true)
@@ -79,7 +76,7 @@ function FoodList({ category, keyword, typeSelection }: Props) {
                     {error}
                 </h2>
             ) : data.length === 0 ? (
-                <h2 className="text-grayLight text-2xl font-bold w-full">
+                <h2 className="text-grayLight text-2xl font-bold w-full h-36 ">
                     There are no food items
                 </h2>
             ) : (

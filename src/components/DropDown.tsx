@@ -3,12 +3,12 @@ import { useOutsideClick } from '../hooks/useOutsideClick'
 
 interface Props {
     options: string[]
-    selected: (value: string) => void
+    selected: string
+    setSelected: (value: string) => void
 }
 
-function DropDown({ options, selected }: Props) {
+function DropDown({ options, selected, setSelected }: Props) {
     const [dpDisplay, setDpDisplay] = useState(false)
-    const [selectedOp, setSelectedOp] = useState(options[0])
     const ref = useRef<HTMLDivElement>(null)
 
     useOutsideClick(ref, () => {
@@ -54,8 +54,7 @@ function DropDown({ options, selected }: Props) {
                                     className="block px-4 py-2 text-sm rounded-lg hover:bg-gray"
                                     onClick={(e) => {
                                         e.preventDefault()
-                                        setSelectedOp(option)
-                                        selected(option)
+                                        setSelected(option)
                                     }}
                                 >
                                     {option}
@@ -69,7 +68,7 @@ function DropDown({ options, selected }: Props) {
                 href="#"
                 className="px-3 py-3 text-white font-bold text-sm rounded-lg"
             >
-                {selectedOp}
+                {selected}
             </a>
         </div>
     )

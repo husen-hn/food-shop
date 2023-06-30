@@ -1,8 +1,7 @@
 import { useCallback } from 'react'
-import { Category } from '../../utils/category'
 
 export type Props = {
-    title: Category
+    title: string
     index: number
     setSelectedTab: (index: number) => void
     isActive?: boolean

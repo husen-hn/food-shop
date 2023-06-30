@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-interface FData {
+export interface FData {
     image: string
     title: string
     price: string
@@ -48,7 +48,7 @@ function useData({ fData, deps }: FDataType) {
         }
 
         return () => controller.abort()
-    }, [deps.type, deps.keyword])
+    }, [deps.category, deps.type, deps.keyword, fData])
 
     return { data, error, loading }
 }
