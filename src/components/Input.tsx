@@ -15,9 +15,9 @@ function Input({ setSearchValue }: Props) {
     return (
         <div>
             <div className="relative mb-1">
-                <LuSearch className="pointer-events-none ml-3 mr-2 w-5 h-5 absolute top-1/2 transform -translate-y-1/2 text-white" />
+                <LuSearch className="pointer-events-none ml-3 mr-2 w-5 h-5 absolute top-1/2 transform -translate-y-1/2 text-white dark:text-grayLight" />
                 <input
-                    className="bg-gray focus:bg-gray appearance-none border-[1px] border-gray placeholder-grayLight focus:border-red rounded-md w-96 h-10 py-3 pl-10 pr-5 text-white leading-tight focus:outline-none truncate"
+                    className="bg-gray dark:bg-lightGold focus:bg-gray appearance-none border-[1px] border-gray dark:border-dark dark:border-2 placeholder-grayLight dark:placeholder-lightGray focus:border-red rounded-md w-96 h-10 py-3 pl-10 pr-5 text-white dark:text-dark leading-tight focus:outline-none truncate"
                     type="text"
                     placeholder="Search for food, coffe..."
                     value={value}

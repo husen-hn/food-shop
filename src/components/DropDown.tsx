@@ -18,13 +18,13 @@ function DropDown({ options, selected, setSelected }: Props) {
     return (
         <div
             ref={ref}
-            className="inline-flex bg-dark border-[2px] border-gray rounded-lg"
+            className="inline-flex bg-dark dark:bg-gold border-[2px] border-gray dark:border-dark rounded-lg"
             onClick={() => setDpDisplay(!dpDisplay)}
         >
             <div className="relative">
                 <button
                     type="button"
-                    className="inline-flex items-center justify-center h-full pl-2 text-white rounded-lg hover:bg-dark"
+                    className="inline-flex items-center justify-center h-full pl-2 text-white dark:text-dark rounded-lg hover:bg-dark dark:hover:bg-gold"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -44,14 +44,14 @@ function DropDown({ options, selected, setSelected }: Props) {
                 {dpDisplay ? (
                     <div
                         className={
-                            'absolute -right-24 z-10 w-44 mt-2 origin-top-right bg-dark border border-gray rounded-lg shadow-lg text-white p-1'
+                            'absolute -right-24 z-10 w-44 mt-2 origin-top-right bg-dark dark:bg-gold border-2 border-gray rounded-lg shadow-lg text-white dark:text-dark p-1'
                         }
                     >
                         {options.map((option) => (
                             <div key={option} className="">
                                 <a
                                     href=""
-                                    className="block px-4 py-2 text-sm rounded-lg hover:bg-gray"
+                                    className="block px-4 py-2 text-sm rounded-lg hover:bg-gray dark:hover:bg-darkGold"
                                     onClick={(e) => {
                                         e.preventDefault()
                                         setSelected(option)
@@ -66,7 +66,7 @@ function DropDown({ options, selected, setSelected }: Props) {
             </div>
             <a
                 href="#"
-                className="px-3 py-3 text-white font-bold text-sm rounded-lg"
+                className="px-3 py-3 text-white dark:text-dark font-bold text-sm rounded-lg"
             >
                 {selected}
             </a>

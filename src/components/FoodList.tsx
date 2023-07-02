@@ -13,6 +13,8 @@ interface Props {
     foodTypes: string[]
     foodTypeSelected: string
     foodTypeSelection: (value: string) => void
+    isDarkMode: boolean
+    toogleDarkMode: () => void
 }
 
 function FoodList({
@@ -21,9 +23,10 @@ function FoodList({
     loading,
     foodTypeSelection,
     foodTypeSelected,
-    foodTypes
+    foodTypes,
+    isDarkMode,
+    toogleDarkMode
 }: Props) {
-    const [dark, setDark] = useState(true)
     const [effect, setEffect] = useState(false)
 
     const handleFoodTypeSelection = useCallback(
@@ -37,7 +40,7 @@ function FoodList({
         <div className="flex flex-col m-10">
             {/* Header */}
             <div className="flex flex-row mb-20 items-center justify-between">
-                <h1 className="text-white sm:text-lg md:text-2xl mt-5">
+                <h1 className="text-white dark:text-dark sm:text-lg md:text-2xl mt-5">
                     Choose Dishes
                 </h1>
 
@@ -47,20 +50,20 @@ function FoodList({
                         selected={foodTypeSelected}
                         setSelected={(value) => handleFoodTypeSelection(value)}
                     />
-                    <button className="inline-flex items-center justify-center h-full ml-1 pl-2 bg-dark text-xl text-white p-2 py-[11px] border-2 border-gray rounded-md">
+                    <button className="inline-flex items-center justify-center h-full ml-1 pl-2 bg-dark dark:bg-gold text-xl text-white dark:text-dark p-2 py-[11px] border-2 border-gray rounded-md">
                         <AiOutlineShoppingCart />
                     </button>
                     <button
                         className={`${
                             effect && 'animate-wiggle'
-                        } ml-1 inline-flex items-center justify-center h-full pl-2 bg-dark text-xl text-white p-2 py-[11px] border-2 border-gray rounded-md`}
+                        } ml-1 inline-flex items-center justify-center h-full pl-2 bg-dark dark:bg-gold text-xl text-white dark:text-dark p-2 py-[11px] border-2 border-gray rounded-md`}
                         onClick={() => {
-                            setDark(!dark)
+                            toogleDarkMode()
                             setEffect(true)
                         }}
                         onAnimationEnd={() => setEffect(false)}
                     >
-                        {dark ? <BsSun /> : <BsFillMoonFill />}
+                        {isDarkMode ? <BsSun /> : <BsFillMoonFill />}
                     </button>
                 </div>
             </div>
@@ -76,7 +79,7 @@ function FoodList({
                     {error}
                 </h2>
             ) : data.length === 0 ? (
-                <h2 className="text-grayLight text-2xl font-bold w-full h-36 ">
+                <h2 className="text-grayLight text-2xl font-bold w-full h-36">
                     There are no food items
                 </h2>
             ) : (

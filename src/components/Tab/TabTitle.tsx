@@ -17,8 +17,8 @@ const TabTitle = ({
         setSelectedTab(index)
     }, [setSelectedTab, index])
 
-    const activeStyle = 'text-red'
-    const normalStyle = 'text-white'
+    const activeStyle = 'text-red font-bold'
+    const normalStyle = 'text-white dark:text-dark'
     return (
         <>
             <li

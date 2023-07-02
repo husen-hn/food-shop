@@ -8,6 +8,7 @@ import Footer from './components/Footer'
 import useData from './hooks/useData'
 import fake_data from './data/fake_data'
 import { Type } from './utils/type'
+import useDarkSide from './hooks/useDarkSide'
 
 function App() {
     const foodCategories: string[] = (
@@ -31,6 +32,15 @@ function App() {
         }
     })
 
+    const { colorTheme, setTheme } = useDarkSide()
+
+    const handleTheme = () => {
+        setTheme(colorTheme)
+        colorTheme === 'light'
+            ? (window.document.documentElement.className = 'darkRoot')
+            : (window.document.documentElement.className = 'lightRoot')
+    }
+
     return (
         <>
             <NavBar setSearchInputValue={(value) => setSearchText(value)} />
@@ -51,6 +61,8 @@ function App() {
                 foodTypes={foodTypes}
                 foodTypeSelected={foodType}
                 foodTypeSelection={(value) => setFoodType(value)}
+                isDarkMode={colorTheme === 'light' ? false : true}
+                toogleDarkMode={() => handleTheme()}
             />
 
             <Footer />

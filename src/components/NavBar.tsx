@@ -17,7 +17,9 @@ function NavBar({ setSearchInputValue }: Props) {
         <nav className="relative container mx-auto p-6">
             <div className="flex flex-col md:flex-row justify-between">
                 <div className="flex flex-col">
-                    <h1 className="text-white text-2xl">Mishka restaurant</h1>
+                    <h1 className="text-white dark:text-dark text-2xl">
+                        Mishka restaurant
+                    </h1>
                 </div>
                 <div className="flex my-auto mt-5 md:mt-0">
                     <Input setSearchValue={handleSearchOnChange} />

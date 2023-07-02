@@ -9,6 +9,9 @@ export default {
                 gray: '#2e303f',
                 grayLight: '#7c808b',
                 white: '#fefeff',
+                lightGold: '#FADAD1',
+                gold: '#F9CBBE',
+                darkGold: '#FAB795',
                 red: '#ea7d69'
             },
             fontFamily: {

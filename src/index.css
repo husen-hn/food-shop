@@ -7,6 +7,16 @@
     scrollbar-color: #ea7d69 #252837;
 }
 
+.lightRoot {
+    background: #fefeff;
+    scrollbar-color: #ea7d69 #fefeff;
+}
+
+.darkRoot {
+    background: #252837;
+    scrollbar-color: #ea7d69 #252837;
+}
+
 ::selection {
     color: #252837;
     background: #eb7c69;
