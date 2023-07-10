@@ -3,8 +3,8 @@ import { FData } from '../hooks/useData'
 import FoodItem from './FoodItem'
 import FoodItemSkeleton from './FoodItemSkeleton'
 import DropDown from './DropDown'
-import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { BsFillMoonFill, BsSun } from 'react-icons/bs'
+import ShoppingCard from './Card/ShoppingCard'
 
 interface Props {
     data: FData[]
@@ -44,15 +44,13 @@ function FoodList({
                     Choose Dishes
                 </h1>
 
-                <div className="justify-center ">
+                <div className="inline-flex justify-center">
                     <DropDown
                         options={foodTypes.map((key) => key)}
                         selected={foodTypeSelected}
                         setSelected={(value) => handleFoodTypeSelection(value)}
                     />
-                    <button className="inline-flex items-center justify-center h-full ml-1 pl-2 bg-dark dark:bg-gold text-xl text-white dark:text-dark p-2 py-[11px] border-2 border-gray rounded-md">
-                        <AiOutlineShoppingCart />
-                    </button>
+                    <ShoppingCard />
                     <button
                         className={`${
                             effect && 'animate-wiggle'

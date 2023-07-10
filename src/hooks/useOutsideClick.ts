@@ -1,13 +1,23 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
 export function useOutsideClick(
     ref: React.RefObject<Element>,
     onClickOut: () => void
 ) {
+    const handleOutSideClick = useCallback(() => {
+        onClickOut()
+    }, [onClickOut])
+
     useEffect(() => {
         function handleClickOutside(event: MouseEvent): void {
-            if (ref.current && !ref.current.contains(event.target as Node)) {
-                onClickOut()
+            console.log(!ref.current?.contains(event.target as Node))
+
+            if (
+                ref.current &&
+                !ref.current.contains(event.target as Node) &&
+                event.target !== ref.current
+            ) {
+                handleOutSideClick()
             }
         }
         // Bind the event listener

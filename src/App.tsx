@@ -9,6 +9,7 @@ import useData from './hooks/useData'
 import fake_data from './data/fake_data'
 import { Type } from './utils/type'
 import useDarkSide from './hooks/useDarkSide'
+import { useOutsideClick } from './hooks/useOutsideClick'
 
 function App() {
     const foodCategories: string[] = (
