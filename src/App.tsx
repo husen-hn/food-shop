@@ -5,11 +5,10 @@ import NavBar from './components/NavBar'
 import Tabs from './components/Tab/Tabs'
 import { Category } from './utils/category'
 import Footer from './components/Footer'
-import useData from './hooks/useData'
+import useData, { FData } from './hooks/useData'
 import fake_data from './data/fake_data'
 import { Type } from './utils/type'
 import useDarkSide from './hooks/useDarkSide'
-import { useOutsideClick } from './hooks/useOutsideClick'
 
 function App() {
     const foodCategories: string[] = (
@@ -42,6 +41,56 @@ function App() {
             : (window.document.documentElement.className = 'lightRoot')
     }
 
+    const saveCartStorage = (item: FData) => {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems') ?? '[]')
+
+        if (cartItems.length !== 0) {
+            // if Cart is not empty
+            const fItemIndex = cartItems.findIndex(
+                (i: { id: number }) => i.id === item.id
+            )
+
+            if (fItemIndex !== -1 || fItemIndex === undefined) {
+                // if item is available on cart
+                const fItem = cartItems[fItemIndex]
+                cartItems[fItemIndex] = {
+                    id: fItem.id,
+                    qty: fItem.qty + 1,
+                    orderNote: fItem.orderNote
+                }
+
+                localStorage.setItem(
+                    'cartItems',
+                    JSON.stringify([...cartItems])
+                )
+            } else {
+                // if item is not available on cart
+                localStorage.setItem(
+                    'cartItems',
+                    JSON.stringify([
+                        ...cartItems,
+                        {
+                            id: item.id,
+                            qty: 1,
+                            orderNote: ''
+                        }
+                    ])
+                )
+            }
+        } else {
+            // if Cart is empty
+            localStorage.setItem(
+                'cartItems',
+                JSON.stringify([
+                    {
+                        id: item.id,
+                        qty: 1,
+                        orderNote: ''
+                    }
+                ])
+            )
+        }
+    }
     return (
         <>
             <NavBar setSearchInputValue={(value) => setSearchText(value)} />
@@ -64,6 +113,7 @@ function App() {
                 foodTypeSelection={(value) => setFoodType(value)}
                 isDarkMode={colorTheme === 'light' ? false : true}
                 toogleDarkMode={() => handleTheme()}
+                foodItemClicked={saveCartStorage}
             />
 
             <Footer />

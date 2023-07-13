@@ -15,6 +15,7 @@ interface Props {
     foodTypeSelection: (value: string) => void
     isDarkMode: boolean
     toogleDarkMode: () => void
+    foodItemClicked: (item: FData) => void
 }
 
 function FoodList({
@@ -25,7 +26,8 @@ function FoodList({
     foodTypeSelected,
     foodTypes,
     isDarkMode,
-    toogleDarkMode
+    toogleDarkMode,
+    foodItemClicked
 }: Props) {
     const [effect, setEffect] = useState(false)
 
@@ -85,10 +87,8 @@ function FoodList({
                     {data.map((food) => (
                         <FoodItem
                             key={food.title + food.price + food.inventory}
-                            imgName={food.image}
-                            title={food.title}
-                            price={food.price}
-                            inventory={food.inventory}
+                            item={food}
+                            itemClicked={foodItemClicked}
                         />
                     ))}
                 </div>

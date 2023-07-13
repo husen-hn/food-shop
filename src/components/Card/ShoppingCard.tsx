@@ -2,9 +2,8 @@ import { useRef, useState } from 'react'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { useOutsideClick } from '../../hooks/useOutsideClick'
 import TabsFilled from '../TabFilled/TabsFilled'
-
 import { TiDeleteOutline } from 'react-icons/ti'
-import CardItem from './CardItem'
+// import CartListItems from './CartListItems'
 
 function ShoppingCard() {
     const [cardDisplay, setCardDisplay] = useState(false)
@@ -13,6 +12,9 @@ function ShoppingCard() {
     useOutsideClick(ref, () => {
         setCardDisplay(false)
     })
+
+    const [selectedFilter, setFilterTab] = useState(0)
+    const filters = ['Dine In', 'To Go', 'Delivery']
 
     return (
         <div
@@ -44,23 +46,18 @@ function ShoppingCard() {
                             </div>
                             {/* Tabs */}
                             <TabsFilled
-                                categories={['Dine In', 'To Go', 'Delivery']}
-                                selectedTab={'Dine In'}
+                                categories={filters}
+                                selectedTab={filters[selectedFilter]}
                                 tabSelection={(index: number) => {
-                                    index.toString()
+                                    setFilterTab(index)
                                 }}
                             />
                             {/* Body - card items */}
-                            <div className="mt-8">
-                                <div className="flow-root">
-                                    <ul
-                                        role="list"
-                                        className="-my-6 divide-y divide-gray-200"
-                                    >
-                                        <CardItem />
-                                    </ul>
-                                </div>
-                            </div>
+                            {/* <CartListItems
+                                items={[]}
+                                setQty={() => {}}
+                                setOrderNote={() => {}}
+                            /> */}
                         </div>
                         {/* Footer */}
                         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">

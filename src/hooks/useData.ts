@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 export interface FData {
+    id: number
     image: string
     title: string
     price: string
