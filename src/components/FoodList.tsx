@@ -16,6 +16,14 @@ interface Props {
     isDarkMode: boolean
     toogleDarkMode: () => void
     foodItemClicked: (item: FData) => void
+    cartData: FData[]
+    cartDisplay: boolean
+    setCartDisplay: (value: boolean) => void
+    selectedCartFilterIndex: number
+    setCartFilterTab: (value: number) => void
+    cartFilters: Array<string>
+    cartLoadingItems: boolean
+    cartErrorItems: string
 }
 
 function FoodList({
@@ -27,7 +35,15 @@ function FoodList({
     foodTypes,
     isDarkMode,
     toogleDarkMode,
-    foodItemClicked
+    foodItemClicked,
+    cartData,
+    cartDisplay,
+    setCartDisplay,
+    selectedCartFilterIndex,
+    setCartFilterTab,
+    cartFilters,
+    cartLoadingItems,
+    cartErrorItems
 }: Props) {
     const [effect, setEffect] = useState(false)
 
@@ -52,7 +68,16 @@ function FoodList({
                         selected={foodTypeSelected}
                         setSelected={(value) => handleFoodTypeSelection(value)}
                     />
-                    <ShoppingCard />
+                    <ShoppingCard
+                        data={cartData}
+                        cartDisplay={cartDisplay}
+                        setCartDisplay={setCartDisplay}
+                        selectedFilterIndex={selectedCartFilterIndex}
+                        setFilterTab={setCartFilterTab}
+                        filters={cartFilters}
+                        loading={cartLoadingItems}
+                        error={cartErrorItems}
+                    />
                     <button
                         className={`${
                             effect && 'animate-wiggle'

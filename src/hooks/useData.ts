@@ -8,6 +8,8 @@ export interface FData {
     inventory: number
     categories: string[]
     types: string[]
+    qty: number
+    orderNote: string
 }
 
 interface FDataDeps {

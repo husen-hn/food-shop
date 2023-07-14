@@ -1,29 +1,50 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { useOutsideClick } from '../../hooks/useOutsideClick'
 import TabsFilled from '../TabFilled/TabsFilled'
 import { TiDeleteOutline } from 'react-icons/ti'
-// import CartListItems from './CartListItems'
+import CartListItems from './CartListItem'
+import { FData } from '../../hooks/useData'
+import CartOrderSkeleton from './CartOrderSkeleton'
+import Loading from '../Loading'
 
-function ShoppingCard() {
-    const [cardDisplay, setCardDisplay] = useState(false)
+interface Props {
+    data: FData[]
+    cartDisplay: boolean
+    setCartDisplay: (value: boolean) => void
+    selectedFilterIndex: number
+    setFilterTab: (value: number) => void
+    filters: Array<string>
+    loading: boolean
+    error: string | null
+}
+
+function ShoppingCard({
+    data,
+    cartDisplay,
+    setCartDisplay,
+    selectedFilterIndex,
+    setFilterTab,
+    filters,
+    loading,
+    error
+}: Props) {
     const ref = useRef<HTMLDivElement>(null)
 
     useOutsideClick(ref, () => {
-        setCardDisplay(false)
+        setCartDisplay(false)
     })
-
-    const [selectedFilter, setFilterTab] = useState(0)
-    const filters = ['Dine In', 'To Go', 'Delivery']
 
     return (
         <div
             // ref={ref}
-            className="relative"
-            onClick={() => setCardDisplay(!cardDisplay)}
+            className={`relative`}
+            onClick={() => setCartDisplay(!cartDisplay)}
         >
-            {cardDisplay ? (
-                <div className="fixed inset-0 backdrop-blur-sm z-10">
+            {cartDisplay ? (
+                <div
+                    className={`animate-fade-left fixed inset-0 backdrop-blur-sm z-10`}
+                >
                     <div
                         className="bg-dark w-1/3 h-full absolute right-0 overflow-y-scroll flex flex-col"
                         onClick={(e) => e.stopPropagation()}
@@ -39,7 +60,7 @@ function ShoppingCard() {
                                 </h2>
                                 <button
                                     className="text-3xl text-white dark:text-dark"
-                                    onClick={() => setCardDisplay(false)}
+                                    onClick={() => setCartDisplay(false)}
                                 >
                                     <TiDeleteOutline />
                                 </button>
@@ -47,28 +68,86 @@ function ShoppingCard() {
                             {/* Tabs */}
                             <TabsFilled
                                 categories={filters}
-                                selectedTab={filters[selectedFilter]}
+                                selectedTab={filters[selectedFilterIndex]}
                                 tabSelection={(index: number) => {
                                     setFilterTab(index)
                                 }}
                             />
                             {/* Body - card items */}
-                            {/* <CartListItems
-                                items={[]}
-                                setQty={() => {}}
-                                setOrderNote={() => {}}
-                            /> */}
+
+                            {loading ? (
+                                <div className="flex flex-col">
+                                    {[1, 2, 3].map(() => (
+                                        <CartOrderSkeleton
+                                            key={crypto.randomUUID()}
+                                        />
+                                    ))}
+                                </div>
+                            ) : error ? (
+                                <h2 className="text-grayLight text-2xl font-bold w-full">
+                                    {error}
+                                </h2>
+                            ) : data.length === 0 ? (
+                                <h2 className="text-grayLight text-2xl font-bold w-full">
+                                    There are no selected order
+                                </h2>
+                            ) : (
+                                <div className="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                    <div className="mt-8">
+                                        <div className="flow-root">
+                                            <ul
+                                                role="list"
+                                                className="-my-6 divide-y divide-gray-200"
+                                            >
+                                                {data.map((order) => (
+                                                    <CartListItems
+                                                        key={
+                                                            order.title +
+                                                            order.price +
+                                                            order.inventory
+                                                        }
+                                                        order={order}
+                                                        deleteClicked={() => {
+                                                            null
+                                                        }}
+                                                        setOrderQty={() => {
+                                                            null
+                                                        }}
+                                                        setOrderNote={() => {
+                                                            null
+                                                        }}
+                                                    />
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                         {/* Footer */}
                         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                             <div className="flex justify-between text-sm font-medium ">
                                 <p className="text-grayLight">Discount</p>
-                                <p className="text-white dark:text-dark">$0</p>
+                                <p className="text-white dark:text-dark">
+                                    {loading ? (
+                                        <Loading />
+                                    ) : error ? (
+                                        '$0'
+                                    ) : (
+                                        '$0'
+                                    )}
+                                </p>
                             </div>
                             <div className="flex justify-between  text-sm font-medium ">
                                 <p className="text-grayLight">Sub total</p>
                                 <p className="text-white dark:text-dark">
-                                    $21,03
+                                    {loading ? (
+                                        <Loading />
+                                    ) : error ? (
+                                        '$0'
+                                    ) : (
+                                        '$0'
+                                    )}
                                 </p>
                             </div>
                             <div className="mt-6">

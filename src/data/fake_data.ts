@@ -6,7 +6,9 @@ export default [
         price: '3.29',
         inventory: 16,
         categories: ['Hot Dishes', 'Soup', 'Dessert'],
-        types: ['Breakfast', 'Lunch', 'Dinner']
+        types: ['Breakfast', 'Lunch', 'Dinner'],
+        qty: 0,
+        orderNote: ''
     },
     {
         id: 2,
@@ -15,7 +17,9 @@ export default [
         price: '2.99',
         inventory: 16,
         categories: ['Hot Dishes', 'Grill', 'Dessert'],
-        types: ['Breakfast', 'Evening Meal']
+        types: ['Breakfast', 'Evening Meal'],
+        qty: 0,
+        orderNote: ''
     },
     {
         id: 3,
@@ -24,7 +28,9 @@ export default [
         price: '5.55',
         inventory: 6,
         categories: ['Hot Dishes', 'Soup'],
-        types: ['Breakfast', 'Dinner']
+        types: ['Breakfast', 'Dinner'],
+        qty: 0,
+        orderNote: ''
     },
     {
         id: 4,
@@ -33,7 +39,9 @@ export default [
         price: '4.45',
         inventory: 7,
         categories: ['Hot Dishes', 'Grill'],
-        types: ['Breakfast', 'Lunch', 'Evening Meal']
+        types: ['Breakfast', 'Lunch', 'Evening Meal'],
+        qty: 0,
+        orderNote: ''
     },
     {
         id: 5,
@@ -42,7 +50,9 @@ export default [
         price: '0.5',
         inventory: 9,
         categories: ['Hot Dishes', 'Soup', 'Appetizer', 'Dessert'],
-        types: ['Breakfast', 'Lunch', 'Dinner']
+        types: ['Breakfast', 'Lunch', 'Dinner'],
+        qty: 0,
+        orderNote: ''
     },
     {
         id: 6,
@@ -51,7 +61,9 @@ export default [
         price: '0.99',
         inventory: 5,
         categories: ['Hot Dishes', 'Grill', 'Appetizer', 'Dessert'],
-        types: ['Breakfast', 'Evening Meal']
+        types: ['Breakfast', 'Evening Meal'],
+        qty: 0,
+        orderNote: ''
     },
     {
         id: 7,
@@ -60,7 +72,9 @@ export default [
         price: '3.29',
         inventory: 2,
         categories: ['Hot Dishes', 'Soup', 'Appetizer'],
-        types: ['Breakfast', 'Lunch', 'Dinner']
+        types: ['Breakfast', 'Lunch', 'Dinner'],
+        qty: 0,
+        orderNote: ''
     },
     {
         id: 8,
@@ -69,7 +83,9 @@ export default [
         price: '2.99',
         inventory: 10,
         categories: ['Hot Dishes', 'Grill', 'Appetizer'],
-        types: ['Breakfast', 'Evening Meal', 'Dinner']
+        types: ['Breakfast', 'Evening Meal', 'Dinner'],
+        qty: 0,
+        orderNote: ''
     },
     {
         id: 9,
@@ -78,7 +94,9 @@ export default [
         price: '3.29',
         inventory: 20,
         categories: ['Cold Dishes', 'Soup', 'Appetizer', 'Dessert'],
-        types: ['Breakfast', 'Evening Meal']
+        types: ['Breakfast', 'Evening Meal'],
+        qty: 0,
+        orderNote: ''
     },
     {
         id: 10,
@@ -87,7 +105,9 @@ export default [
         price: '2.99',
         inventory: 5,
         categories: ['Cold Dishes', 'Grill', 'Appetizer', 'Dessert'],
-        types: ['Breakfast', 'Lunch', 'Dinner']
+        types: ['Breakfast', 'Lunch', 'Dinner'],
+        qty: 0,
+        orderNote: ''
     },
     {
         id: 11,
@@ -96,7 +116,9 @@ export default [
         price: '5.55',
         inventory: 16,
         categories: ['Cold Dishes', 'Soup', 'Appetizer'],
-        types: ['Breakfast', 'Evening Meal']
+        types: ['Breakfast', 'Evening Meal'],
+        qty: 0,
+        orderNote: ''
     },
     {
         id: 12,
@@ -105,7 +127,9 @@ export default [
         price: '4.45',
         inventory: 16,
         categories: ['Cold Dishes', 'Grill', 'Appetizer'],
-        types: ['Breakfast', 'Lunch', 'Dinner']
+        types: ['Breakfast', 'Lunch', 'Dinner'],
+        qty: 0,
+        orderNote: ''
     },
     {
         id: 13,
@@ -114,7 +138,9 @@ export default [
         price: '0.5',
         inventory: 6,
         categories: ['Cold Dishes', 'Soup', 'Dessert'],
-        types: ['Breakfast', 'Evening Meal']
+        types: ['Breakfast', 'Evening Meal'],
+        qty: 0,
+        orderNote: ''
     },
     {
         id: 14,
@@ -123,7 +149,9 @@ export default [
         price: '0.99',
         inventory: 11,
         categories: ['Cold Dishes', 'Grill', 'Dessert'],
-        types: ['Breakfast', 'Lunch', 'Evening Meal']
+        types: ['Breakfast', 'Lunch', 'Evening Meal'],
+        qty: 0,
+        orderNote: ''
     },
     {
         id: 15,
@@ -132,7 +160,9 @@ export default [
         price: '3.29',
         inventory: 7,
         categories: ['Cold Dishes', 'Soup'],
-        types: ['Breakfast', 'Dinner']
+        types: ['Breakfast', 'Dinner'],
+        qty: 0,
+        orderNote: ''
     },
     {
         id: 16,
@@ -141,6 +171,8 @@ export default [
         price: '2.99',
         inventory: 13,
         categories: ['Cold Dishes', 'Grill'],
-        types: ['Breakfast', 'Lunch', 'Evening Meal', 'Dinner']
+        types: ['Breakfast', 'Lunch', 'Evening Meal', 'Dinner'],
+        qty: 0,
+        orderNote: ''
     }
 ]
