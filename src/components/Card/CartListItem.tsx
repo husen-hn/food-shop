@@ -1,6 +1,7 @@
 import { AiOutlineDelete } from 'react-icons/ai'
 import { FData } from '../../hooks/useData'
 import { useCallback } from 'react'
+import useImage from '../../hooks/useImage'
 
 interface Props {
     order: FData
@@ -34,18 +35,29 @@ function CartListItems({
         [setOrderNote]
     )
 
+    const { loading, error, image } = useImage({ imgName: order.image })
+
     return (
         <li className="flex flex-col py-6">
             <div className="flex items-center justify-between">
                 <div className="flex text-white items-center">
-                    <img
-                        src={order.image}
-                        alt={order.title}
-                        className="w-16 h-16 rounded-full"
-                    />
-                    <div className="ml-2 text-white dark:text-dark">
+                    {loading ? (
+                        <div className="bg-white dark:bg-gold w-44 h-44 -mt-20 ml-20 mr-20 rounded-full" />
+                    ) : error ? (
+                        <div className="bg-white dark:bg-gold w-44 h-44 -mt-20 ml-20 mr-20 rounded-full">
+                            {error as string}
+                        </div>
+                    ) : (
+                        <img
+                            className="w-16 rounded-full"
+                            src={image}
+                            alt={order.title}
+                        />
+                    )}
+
+                    <div className="ml-2 text-white dark:text-dark line-clamp-1">
                         <p>{order.title}</p>
-                        <p className="text-grayLight text-sm ">
+                        <p className="flex text-grayLight text-sm ">
                             $ {order.price}
                         </p>
                     </div>
@@ -63,8 +75,8 @@ function CartListItems({
                         }
                         type="text"
                     />
-                    <p className="text-white dark:text-dark font-bold p-2  ">
-                        $ {order.qty * parseFloat(order.price)}
+                    <p className="text-white dark:text-dark font-bold p-2">
+                        ${order.qty * parseFloat(order.price)}
                     </p>
                 </div>
             </div>

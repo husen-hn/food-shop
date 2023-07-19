@@ -16,7 +16,7 @@ interface Props {
     isDarkMode: boolean
     toogleDarkMode: () => void
     foodItemClicked: (item: FData) => void
-    cartData: FData[]
+    cartData: { data: FData[]; subTotal: number }
     cartDisplay: boolean
     setCartDisplay: (value: boolean) => void
     selectedCartFilterIndex: number

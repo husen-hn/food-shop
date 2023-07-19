@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { useOutsideClick } from '../../hooks/useOutsideClick'
 import TabsFilled from '../TabFilled/TabsFilled'
@@ -9,12 +9,13 @@ import CartOrderSkeleton from './CartOrderSkeleton'
 import Loading from '../Loading'
 
 interface Props {
-    data: FData[]
+    data: { data: FData[]; subTotal: number }
     cartDisplay: boolean
     setCartDisplay: (value: boolean) => void
     selectedFilterIndex: number
     setFilterTab: (value: number) => void
     filters: Array<string>
+
     loading: boolean
     error: string | null
 }
@@ -32,12 +33,25 @@ function ShoppingCard({
     const ref = useRef<HTMLDivElement>(null)
 
     useOutsideClick(ref, () => {
-        setCartDisplay(false)
+        handleCartDisplay(false)
     })
+
+    const handleCartDisplay = useCallback(
+        (value: boolean) => {
+            setCartDisplay(value)
+        },
+        [setCartDisplay]
+    )
+
+    const handleSetFilterTab = useCallback(
+        (value: number) => {
+            setFilterTab(value)
+        },
+        [setFilterTab]
+    )
 
     return (
         <div
-            // ref={ref}
             className={`relative`}
             onClick={() => setCartDisplay(!cartDisplay)}
         >
@@ -70,7 +84,7 @@ function ShoppingCard({
                                 categories={filters}
                                 selectedTab={filters[selectedFilterIndex]}
                                 tabSelection={(index: number) => {
-                                    setFilterTab(index)
+                                    handleSetFilterTab(index)
                                 }}
                             />
                             {/* Body - card items */}
@@ -87,40 +101,36 @@ function ShoppingCard({
                                 <h2 className="text-grayLight text-2xl font-bold w-full">
                                     {error}
                                 </h2>
-                            ) : data.length === 0 ? (
+                            ) : data.data.length === 0 ? (
                                 <h2 className="text-grayLight text-2xl font-bold w-full">
                                     There are no selected order
                                 </h2>
                             ) : (
-                                <div className="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                    <div className="mt-8">
-                                        <div className="flow-root">
-                                            <ul
-                                                role="list"
-                                                className="-my-6 divide-y divide-gray-200"
-                                            >
-                                                {data.map((order) => (
-                                                    <CartListItems
-                                                        key={
-                                                            order.title +
-                                                            order.price +
-                                                            order.inventory
-                                                        }
-                                                        order={order}
-                                                        deleteClicked={() => {
-                                                            null
-                                                        }}
-                                                        setOrderQty={() => {
-                                                            null
-                                                        }}
-                                                        setOrderNote={() => {
-                                                            null
-                                                        }}
-                                                    />
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    </div>
+                                <div className="flow-root mt-12">
+                                    <ul
+                                        role="list"
+                                        className="-my-6 divide-y divide-gray-200"
+                                    >
+                                        {data.data.map((order) => (
+                                            <CartListItems
+                                                key={
+                                                    order.title +
+                                                    order.price +
+                                                    order.inventory
+                                                }
+                                                order={order}
+                                                deleteClicked={() => {
+                                                    null
+                                                }}
+                                                setOrderQty={() => {
+                                                    null
+                                                }}
+                                                setOrderNote={() => {
+                                                    null
+                                                }}
+                                            />
+                                        ))}
+                                    </ul>
                                 </div>
                             )}
                         </div>
@@ -146,7 +156,7 @@ function ShoppingCard({
                                     ) : error ? (
                                         '$0'
                                     ) : (
-                                        '$0'
+                                        `$${data.subTotal}`
                                     )}
                                 </p>
                             </div>

@@ -5,11 +5,11 @@ import NavBar from './components/NavBar'
 import Tabs from './components/Tab/Tabs'
 import { Category } from './utils/category'
 import Footer from './components/Footer'
-import useData from './hooks/useData'
+import useData, { FData } from './hooks/useData'
 import fake_data from './data/fake_data'
 import { Type } from './utils/type'
 import useDarkSide from './hooks/useDarkSide'
-import { CartStorage } from './utils/cartStorage'
+import useStorage from './hooks/useStorage'
 
 function App() {
     const foodCategories: string[] = (
@@ -46,6 +46,50 @@ function App() {
     const [selectedCartFilter, setCartFilterTab] = useState(0)
     const cartFilters = ['Dine In', 'To Go', 'Delivery']
 
+    const [fData, setFData] = useState<FData>()
+    const [deleteData, setDeleteData] = useState<FData>()
+    const {
+        storageData,
+        error: storageError,
+        loading: storageLoading
+    } = useStorage({
+        key: 'cartItems',
+        data: fData,
+        deleteData: deleteData
+    })
+
+    const getStorageData = (
+        fakeData: FData[],
+        storageData: FData[]
+    ): { data: FData[]; subTotal: number } => {
+        // data from strorage is imperfect, so find the id in fake_data to get complete data
+        const data: FData[] = []
+        storageData.map((sd) => {
+            const fItem: FData | undefined = fakeData.find(
+                (i) => i.id === sd.id
+            )
+
+            if (fItem) {
+                fItem.qty = sd.qty
+                fItem.orderNote = sd.orderNote
+                data.push(fItem)
+            }
+        })
+
+        const subTotal = getCartSubTotal(data)
+
+        return { data, subTotal }
+    }
+
+    const getCartSubTotal = (data: FData[]): number => {
+        let subTotal = 0
+        data.map((order) => {
+            subTotal += parseFloat(order.price) * order.qty
+        })
+
+        return subTotal
+    }
+
     return (
         <>
             <NavBar setSearchInputValue={(value) => setSearchText(value)} />
@@ -68,15 +112,15 @@ function App() {
                 foodTypeSelection={(value) => setFoodType(value)}
                 isDarkMode={colorTheme === 'light' ? false : true}
                 toogleDarkMode={() => handleTheme()}
-                foodItemClicked={CartStorage.save}
-                cartData={[]}
+                foodItemClicked={setFData}
+                cartData={getStorageData(fake_data, storageData)}
                 cartDisplay={cartDisplay}
                 setCartDisplay={setCartDisplay}
                 selectedCartFilterIndex={selectedCartFilter}
                 setCartFilterTab={setCartFilterTab}
                 cartFilters={cartFilters}
-                cartLoadingItems={false}
-                cartErrorItems=""
+                cartLoadingItems={storageLoading}
+                cartErrorItems={storageError}
             />
 
             <Footer />
