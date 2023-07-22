@@ -46,8 +46,11 @@ function App() {
     const [selectedCartFilter, setCartFilterTab] = useState(0)
     const cartFilters = ['Dine In', 'To Go', 'Delivery']
 
-    const [fData, setFData] = useState<FData>()
-    const [deleteData, setDeleteData] = useState<FData>()
+    const [fData, setFData] = useState<FData | undefined>(undefined)
+    const [deleteDataId, setDeleteDataId] = useState<number | undefined>(
+        undefined
+    )
+
     const {
         storageData,
         error: storageError,
@@ -55,7 +58,9 @@ function App() {
     } = useStorage({
         key: 'cartItems',
         data: fData,
-        deleteData: deleteData
+        deleteDataId: deleteDataId,
+        resetData: () => setFData(undefined),
+        resetDeleteData: () => setDeleteDataId(0)
     })
 
     const getStorageData = (
@@ -85,6 +90,7 @@ function App() {
         let subTotal = 0
         data.map((order) => {
             subTotal += parseFloat(order.price) * order.qty
+            subTotal = parseFloat(Number(subTotal).toFixed(2))
         })
 
         return subTotal
@@ -121,6 +127,7 @@ function App() {
                 cartFilters={cartFilters}
                 cartLoadingItems={storageLoading}
                 cartErrorItems={storageError}
+                cartItemDelete={setDeleteDataId}
             />
 
             <Footer />

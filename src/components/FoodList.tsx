@@ -24,6 +24,7 @@ interface Props {
     cartFilters: Array<string>
     cartLoadingItems: boolean
     cartErrorItems: string
+    cartItemDelete: (id: number) => void
 }
 
 function FoodList({
@@ -43,7 +44,8 @@ function FoodList({
     setCartFilterTab,
     cartFilters,
     cartLoadingItems,
-    cartErrorItems
+    cartErrorItems,
+    cartItemDelete
 }: Props) {
     const [effect, setEffect] = useState(false)
 
@@ -52,6 +54,27 @@ function FoodList({
             foodTypeSelection(value)
         },
         [foodTypeSelection]
+    )
+    const handleToogleDarkMode = useCallback(() => {
+        toogleDarkMode()
+    }, [toogleDarkMode])
+    const handleFoodItemClicked = useCallback(
+        (value: FData) => {
+            foodItemClicked(value)
+        },
+        [foodItemClicked]
+    )
+    const handleSetCartFilterTab = useCallback(
+        (value: number) => {
+            setCartFilterTab(value)
+        },
+        [setCartFilterTab]
+    )
+    const handleCartItemDelete = useCallback(
+        (value: number) => {
+            cartItemDelete(value)
+        },
+        [cartItemDelete]
     )
 
     return (
@@ -73,17 +96,18 @@ function FoodList({
                         cartDisplay={cartDisplay}
                         setCartDisplay={setCartDisplay}
                         selectedFilterIndex={selectedCartFilterIndex}
-                        setFilterTab={setCartFilterTab}
+                        setFilterTab={handleSetCartFilterTab}
                         filters={cartFilters}
                         loading={cartLoadingItems}
                         error={cartErrorItems}
+                        cartItemDelete={handleCartItemDelete}
                     />
                     <button
                         className={`${
                             effect && 'animate-wiggle'
                         } ml-1 inline-flex items-center justify-center h-full pl-2 bg-dark dark:bg-gold text-xl text-white dark:text-dark p-2 py-[11px] border-2 border-gray rounded-md`}
                         onClick={() => {
-                            toogleDarkMode()
+                            handleToogleDarkMode()
                             setEffect(true)
                         }}
                         onAnimationEnd={() => setEffect(false)}
@@ -113,7 +137,12 @@ function FoodList({
                         <FoodItem
                             key={food.title + food.price + food.inventory}
                             item={food}
-                            itemClicked={foodItemClicked}
+                            cartItems={cartData.data}
+                            itemClicked={handleFoodItemClicked}
+                            storageLoading={cartLoadingItems}
+                            storageError={cartErrorItems}
+                            cartItemDelete={handleCartItemDelete}
+                            //update
                         />
                     ))}
                 </div>

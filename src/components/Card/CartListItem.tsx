@@ -76,7 +76,8 @@ function CartListItems({
                         type="text"
                     />
                     <p className="text-white dark:text-dark font-bold p-2">
-                        ${order.qty * parseFloat(order.price)}
+                        $
+                        {Number(order.qty * parseFloat(order.price)).toFixed(2)}
                     </p>
                 </div>
             </div>

@@ -1,32 +1,47 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { FData } from './useData'
 
 interface Props {
     key: string
     data?: FData
-    deleteData?: FData
+    deleteDataId?: number
+    resetData: (value: string) => void
+    resetDeleteData: (value: string) => void
 }
 
-function useStorage({ key, data, deleteData }: Props) {
+function useStorage({
+    key,
+    data,
+    deleteDataId,
+    resetData,
+    resetDeleteData
+}: Props) {
     const [storageData, setStorageData] = useState<FData[]>([])
     const [error, setError] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(true)
+
+    const handleResetData = useCallback(resetData, [resetData])
+    const handleResetDeleteData = useCallback(resetDeleteData, [
+        resetDeleteData
+    ])
 
     useEffect(() => {
         try {
             const cartItems = JSON.parse(localStorage.getItem(key) ?? '[]')
 
-            if (deleteData) {
+            if (deleteDataId) {
                 // start to delete items
                 if (cartItems.length !== 0) {
                     const fItemIndex = cartItems.findIndex(
-                        (i: { id: number }) => i.id === deleteData.id
+                        (i: { id: number }) => i.id === deleteDataId
                     )
 
                     cartItems.splice(fItemIndex, 1)
 
                     localStorage.setItem(key, JSON.stringify([...cartItems]))
                 }
+
+                handleResetDeleteData('')
             } else if (data) {
                 if (cartItems.length !== 0) {
                     // if Cart is not empty
@@ -74,6 +89,7 @@ function useStorage({ key, data, deleteData }: Props) {
                         ])
                     )
                 }
+                handleResetData('')
             }
 
             setStorageData(JSON.parse(localStorage.getItem(key) ?? '[]'))
@@ -82,7 +98,7 @@ function useStorage({ key, data, deleteData }: Props) {
             setError(error as string)
             setLoading(false)
         }
-    }, [data, key, deleteData])
+    }, [data, key, deleteDataId])
 
     return { storageData, error, loading }
 }

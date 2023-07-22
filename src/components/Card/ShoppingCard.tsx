@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useRef } from 'react'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { useOutsideClick } from '../../hooks/useOutsideClick'
 import TabsFilled from '../TabFilled/TabsFilled'
@@ -15,9 +15,9 @@ interface Props {
     selectedFilterIndex: number
     setFilterTab: (value: number) => void
     filters: Array<string>
-
     loading: boolean
     error: string | null
+    cartItemDelete: (id: number) => void
 }
 
 function ShoppingCard({
@@ -28,7 +28,8 @@ function ShoppingCard({
     setFilterTab,
     filters,
     loading,
-    error
+    error,
+    cartItemDelete
 }: Props) {
     const ref = useRef<HTMLDivElement>(null)
 
@@ -119,9 +120,7 @@ function ShoppingCard({
                                                     order.inventory
                                                 }
                                                 order={order}
-                                                deleteClicked={() => {
-                                                    null
-                                                }}
+                                                deleteClicked={cartItemDelete}
                                                 setOrderQty={() => {
                                                     null
                                                 }}
@@ -174,7 +173,7 @@ function ShoppingCard({
             ) : null}
             <button className="releative inline-flex h-full ml-1 pl-2 bg-dark dark:bg-gold text-xl text-white dark:text-dark p-2 py-[11px] border-2 border-gray rounded-md">
                 <div className="w-5 h-5 bg-red text-dark rounded-full text-sm absolute -top-2 -right-1 text-center">
-                    0
+                    {data.data.length}
                 </div>
                 <AiOutlineShoppingCart />
             </button>
