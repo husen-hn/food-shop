@@ -6,6 +6,7 @@ import { useCallback, useState } from 'react'
 import { BiError } from 'react-icons/bi'
 import { AiOutlineDelete } from 'react-icons/ai'
 import Loading from './Loading'
+import { useDebounce } from '../hooks/useDebounce'
 
 interface Props {
     item: FData
@@ -14,6 +15,7 @@ interface Props {
     storageLoading: boolean
     storageError: string | null
     cartItemDelete: (id: number) => void
+    setItemQty: (qty: number) => void
 }
 
 function FoodItem({
@@ -22,7 +24,8 @@ function FoodItem({
     itemClicked,
     storageLoading,
     storageError,
-    cartItemDelete
+    cartItemDelete,
+    setItemQty
 }: Props) {
     const { loading, error, image } = useImage({ imgName: item.image })
 
@@ -48,7 +51,18 @@ function FoodItem({
         [cartItemDelete]
     )
 
+    const handleSetQty = useCallback(
+        (qty: number) => {
+            setItemQty(qty)
+        },
+        [setItemQty]
+    )
+
     const [qty, setQty] = useState(item.qty)
+    useDebounce(() => {
+        // if => not sending initial qty
+        if (qty !== item.qty) handleSetQty(qty)
+    }, 500)
 
     return (
         <div className="animate-fade-in-up bg-dark dark:bg-gold items-center w-70 h-80 rounded-xl mt-32">
@@ -95,7 +109,10 @@ function FoodItem({
                                 placeholder="Qty"
                                 value={qty}
                                 onChange={(e) => {
-                                    if (Number(e.target.value))
+                                    if (
+                                        Number(e.target.value) &&
+                                        Number(e.target.value) > 0
+                                    )
                                         setQty(Number(e.target.value))
                                 }}
                                 type="number"

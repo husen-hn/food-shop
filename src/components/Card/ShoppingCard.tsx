@@ -18,6 +18,7 @@ interface Props {
     loading: boolean
     error: string | null
     cartItemDelete: (id: number) => void
+    updateOrderQtyAndNote: (item: FData) => void
 }
 
 function ShoppingCard({
@@ -29,7 +30,8 @@ function ShoppingCard({
     filters,
     loading,
     error,
-    cartItemDelete
+    cartItemDelete,
+    updateOrderQtyAndNote
 }: Props) {
     const ref = useRef<HTMLDivElement>(null)
 
@@ -121,11 +123,24 @@ function ShoppingCard({
                                                 }
                                                 order={order}
                                                 deleteClicked={cartItemDelete}
-                                                setOrderQty={() => {
-                                                    null
+                                                setOrderQty={(value) => {
+                                                    console.log(value)
+
+                                                    updateOrderQtyAndNote({
+                                                        id: order.id,
+                                                        qty: value,
+                                                        orderNote:
+                                                            order.orderNote
+                                                    } as FData)
                                                 }}
-                                                setOrderNote={() => {
-                                                    null
+                                                setOrderNote={(value) => {
+                                                    console.log(value)
+
+                                                    updateOrderQtyAndNote({
+                                                        id: order.id,
+                                                        qty: order.qty,
+                                                        orderNote: value
+                                                    } as FData)
                                                 }}
                                             />
                                         ))}

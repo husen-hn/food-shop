@@ -128,6 +128,7 @@ function App() {
                 cartLoadingItems={storageLoading}
                 cartErrorItems={storageError}
                 cartItemDelete={setDeleteDataId}
+                cartItemUpdateQtyAndNote={setFData}
             />
 
             <Footer />

@@ -25,6 +25,7 @@ interface Props {
     cartLoadingItems: boolean
     cartErrorItems: string
     cartItemDelete: (id: number) => void
+    cartItemUpdateQtyAndNote: (item: FData) => void
 }
 
 function FoodList({
@@ -45,7 +46,8 @@ function FoodList({
     cartFilters,
     cartLoadingItems,
     cartErrorItems,
-    cartItemDelete
+    cartItemDelete,
+    cartItemUpdateQtyAndNote
 }: Props) {
     const [effect, setEffect] = useState(false)
 
@@ -101,6 +103,7 @@ function FoodList({
                         loading={cartLoadingItems}
                         error={cartErrorItems}
                         cartItemDelete={handleCartItemDelete}
+                        updateOrderQtyAndNote={cartItemUpdateQtyAndNote}
                     />
                     <button
                         className={`${
@@ -142,7 +145,13 @@ function FoodList({
                             storageLoading={cartLoadingItems}
                             storageError={cartErrorItems}
                             cartItemDelete={handleCartItemDelete}
-                            //update
+                            setItemQty={(value: number) => {
+                                cartItemUpdateQtyAndNote({
+                                    id: food.id,
+                                    qty: value,
+                                    orderNote: food.orderNote
+                                } as FData)
+                            }}
                         />
                     ))}
                 </div>
