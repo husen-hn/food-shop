@@ -43,10 +43,12 @@ function App() {
     }
 
     const [cartDisplay, setCartDisplay] = useState(false)
+
     const [selectedCartFilter, setCartFilterTab] = useState(0)
     const cartFilters = ['Dine In', 'To Go', 'Delivery']
 
     const [fData, setFData] = useState<FData | undefined>(undefined)
+
     const [deleteDataId, setDeleteDataId] = useState<number | undefined>(
         undefined
     )
@@ -59,11 +61,11 @@ function App() {
         key: 'cartItems',
         data: fData,
         deleteDataId: deleteDataId,
-        resetData: () => setFData(undefined),
+        resetData: () => setFData({} as FData),
         resetDeleteData: () => setDeleteDataId(0)
     })
 
-    const getStorageData = (
+    const getCartStorageData = (
         fakeData: FData[],
         storageData: FData[]
     ): { data: FData[]; subTotal: number } => {
@@ -119,7 +121,7 @@ function App() {
                 isDarkMode={colorTheme === 'light' ? false : true}
                 toogleDarkMode={() => handleTheme()}
                 foodItemClicked={setFData}
-                cartData={getStorageData(fake_data, storageData)}
+                cartData={getCartStorageData(fake_data, storageData)}
                 cartDisplay={cartDisplay}
                 setCartDisplay={setCartDisplay}
                 selectedCartFilterIndex={selectedCartFilter}

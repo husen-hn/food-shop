@@ -39,6 +39,7 @@ function CartListItems({
     const { loading, error, image } = useImage({ imgName: order.image })
 
     const [itemQty, setItemQty] = useState(order.qty)
+
     useDebounce(() => {
         // if => not sending initial qty
         if (itemQty !== order.qty) handleSetOrderQty(itemQty)
@@ -79,7 +80,7 @@ function CartListItems({
                     <input
                         className="bg-gray dark:bg-lightGold focus:bg-gray text-sm text-center appearance-none border-[1px] border-gray dark:border-dark dark:border-2  focus:border-red rounded-md w-10 h-10 text-white dark:text-dark leading-tight focus:outline-none truncate"
                         placeholder="Qty"
-                        value={itemQty ?? ''}
+                        value={itemQty ?? 1}
                         onChange={(e) => {
                             if (
                                 Number(e.target.value) &&
@@ -87,7 +88,7 @@ function CartListItems({
                             )
                                 setItemQty(Number(e.target.value))
                         }}
-                        type="text"
+                        type="number"
                     />
                     <p className="text-white dark:text-dark font-bold p-2">
                         $

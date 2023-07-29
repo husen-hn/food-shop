@@ -63,7 +63,7 @@ function ShoppingCard({
                     className={`animate-fade-left fixed inset-0 backdrop-blur-sm z-10`}
                 >
                     <div
-                        className="bg-dark w-1/3 h-full absolute right-0 overflow-y-scroll flex flex-col"
+                        className="bg-dark w-1/3 h-screen absolute right-0 overflow-y-scroll flex flex-col"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* header */}
@@ -124,8 +124,6 @@ function ShoppingCard({
                                                 order={order}
                                                 deleteClicked={cartItemDelete}
                                                 setOrderQty={(value) => {
-                                                    console.log(value)
-
                                                     updateOrderQtyAndNote({
                                                         id: order.id,
                                                         qty: value,
@@ -134,8 +132,6 @@ function ShoppingCard({
                                                     } as FData)
                                                 }}
                                                 setOrderNote={(value) => {
-                                                    console.log(value)
-
                                                     updateOrderQtyAndNote({
                                                         id: order.id,
                                                         qty: order.qty,

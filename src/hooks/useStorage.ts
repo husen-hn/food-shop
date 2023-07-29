@@ -52,12 +52,12 @@ function useStorage({
                     if (fItemIndex !== -1 || fItemIndex === undefined) {
                         // if item is available on cart update the qty and order note
                         const fItem = cartItems[fItemIndex]
+
                         cartItems[fItemIndex] = {
                             id: fItem.id,
                             qty: data.qty,
                             orderNote: data.orderNote
                         }
-
                         localStorage.setItem(
                             key,
                             JSON.stringify([...cartItems])
