@@ -10,6 +10,7 @@ import fake_data from './data/fake_data'
 import { Type } from './utils/type'
 import useDarkSide from './hooks/useDarkSide'
 import useStorage from './hooks/useStorage'
+import FoodListHeader from './components/FoodListHeader'
 
 function App() {
     const foodCategories: string[] = (
@@ -61,8 +62,8 @@ function App() {
         key: 'cartItems',
         data: fData,
         deleteDataId: deleteDataId,
-        resetData: () => setFData({} as FData),
-        resetDeleteData: () => setDeleteDataId(0)
+        resetData: () => setFData(undefined),
+        resetDeleteData: () => setDeleteDataId(undefined)
     })
 
     const getCartStorageData = (
@@ -98,6 +99,8 @@ function App() {
         return subTotal
     }
 
+    console.log('App rendered ' + fData)
+
     return (
         <>
             <NavBar setSearchInputValue={(value) => setSearchText(value)} />
@@ -111,22 +114,30 @@ function App() {
                 }}
             />
 
-            <FoodList
-                data={data}
-                error={error}
-                loading={loading}
+            <FoodListHeader
                 foodTypes={foodTypes}
                 foodTypeSelected={foodType}
                 foodTypeSelection={(value) => setFoodType(value)}
                 isDarkMode={colorTheme === 'light' ? false : true}
                 toogleDarkMode={() => handleTheme()}
-                foodItemClicked={setFData}
                 cartData={getCartStorageData(fake_data, storageData)}
                 cartDisplay={cartDisplay}
                 setCartDisplay={setCartDisplay}
                 selectedCartFilterIndex={selectedCartFilter}
                 setCartFilterTab={setCartFilterTab}
                 cartFilters={cartFilters}
+                cartLoadingItems={storageLoading}
+                cartErrorItems={storageError}
+                cartItemDelete={setDeleteDataId}
+                cartItemUpdateQtyAndNote={setFData}
+            />
+
+            <FoodList
+                data={data}
+                error={error}
+                loading={loading}
+                foodItemClicked={setFData}
+                cartData={getCartStorageData(fake_data, storageData)}
                 cartLoadingItems={storageLoading}
                 cartErrorItems={storageError}
                 cartItemDelete={setDeleteDataId}

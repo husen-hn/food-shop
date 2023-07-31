@@ -41,7 +41,7 @@ function useStorage({
                     localStorage.setItem(key, JSON.stringify([...cartItems]))
                 }
 
-                handleResetDeleteData('')
+                // handleResetDeleteData('')
             } else if (data) {
                 if (cartItems.length !== 0) {
                     // if Cart is not empty
@@ -89,7 +89,7 @@ function useStorage({
                         ])
                     )
                 }
-                handleResetData('')
+                // handleResetData('')
             }
 
             setStorageData(JSON.parse(localStorage.getItem(key) ?? '[]'))
@@ -97,6 +97,12 @@ function useStorage({
         } catch (error) {
             setError(error as string)
             setLoading(false)
+        }
+        console.log('useStorage')
+
+        return () => {
+            handleResetDeleteData('')
+            handleResetData('')
         }
     }, [data, key, deleteDataId])
 
