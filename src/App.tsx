@@ -99,8 +99,6 @@ function App() {
         return subTotal
     }
 
-    console.log('App rendered ' + fData)
-
     return (
         <>
             <NavBar setSearchInputValue={(value) => setSearchText(value)} />

@@ -58,11 +58,16 @@ function FoodItem({
         [setItemQty]
     )
 
-    const [qty, setQty] = useState(item.qty)
+    const [qty, setQty] = useState<number | undefined>(item.qty)
     useDebounce(() => {
         // if => not sending initial qty
-        if (qty !== item.qty) handleSetQty(qty)
+        if (qty !== item.qty && qty !== undefined && qty !== 0)
+            handleSetQty(qty)
     }, 500)
+
+    if (handleBtnDisable() && qty === 0) {
+        setQty(1)
+    }
 
     return (
         <div className="animate-fade-in-up bg-dark dark:bg-gold items-center w-70 h-80 rounded-xl mt-32">
@@ -100,7 +105,10 @@ function FoodItem({
                         <div className="flex mr-2">
                             <button
                                 className="text-red border-red font-bold border-2 rounded-md text-center justify-center text-lg mr-2 px-2"
-                                onClick={() => handleDeleteItem(item.id)}
+                                onClick={() => {
+                                    setQty(0)
+                                    handleDeleteItem(item.id)
+                                }}
                             >
                                 <AiOutlineDelete />
                             </button>
@@ -109,11 +117,8 @@ function FoodItem({
                                 placeholder="Qty"
                                 value={qty}
                                 onChange={(e) => {
-                                    if (
-                                        Number(e.target.value) &&
-                                        Number(e.target.value) > 0
-                                    )
-                                        setQty(Number(e.target.value))
+                                    const value = Number(e.target.value)
+                                    if (value && value > 0) setQty(value)
                                 }}
                                 type="number"
                             />

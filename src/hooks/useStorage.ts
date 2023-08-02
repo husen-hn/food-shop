@@ -30,6 +30,7 @@ function useStorage({
             const cartItems = JSON.parse(localStorage.getItem(key) ?? '[]')
 
             if (deleteDataId) {
+                console.log('delete ' + deleteDataId)
                 // start to delete items
                 if (cartItems.length !== 0) {
                     const fItemIndex = cartItems.findIndex(
@@ -40,8 +41,6 @@ function useStorage({
 
                     localStorage.setItem(key, JSON.stringify([...cartItems]))
                 }
-
-                // handleResetDeleteData('')
             } else if (data) {
                 if (cartItems.length !== 0) {
                     // if Cart is not empty
@@ -50,6 +49,8 @@ function useStorage({
                     )
 
                     if (fItemIndex !== -1 || fItemIndex === undefined) {
+                        console.log('update ' + data.qty)
+
                         // if item is available on cart update the qty and order note
                         const fItem = cartItems[fItemIndex]
 
@@ -63,6 +64,7 @@ function useStorage({
                             JSON.stringify([...cartItems])
                         )
                     } else {
+                        console.log('create not available ' + data.qty)
                         // if item is not available on cart
                         localStorage.setItem(
                             key,
@@ -77,6 +79,7 @@ function useStorage({
                         )
                     }
                 } else {
+                    console.log('create empty ' + data.qty)
                     // if Cart is empty
                     localStorage.setItem(
                         key,
@@ -89,7 +92,6 @@ function useStorage({
                         ])
                     )
                 }
-                // handleResetData('')
             }
 
             setStorageData(JSON.parse(localStorage.getItem(key) ?? '[]'))
@@ -98,7 +100,6 @@ function useStorage({
             setError(error as string)
             setLoading(false)
         }
-        console.log('useStorage')
 
         return () => {
             handleResetDeleteData('')
