@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import FoodList from './components/FoodList'
 import NavBar from './components/NavBar'
@@ -11,6 +11,7 @@ import { Type } from './utils/type'
 import useDarkSide from './hooks/useDarkSide'
 import useStorage from './hooks/useStorage'
 import FoodListHeader from './components/FoodListHeader'
+import { useDebounce } from './hooks/useDebounce'
 
 function App() {
     const foodCategories: string[] = (
@@ -99,6 +100,13 @@ function App() {
         return subTotal
     }
 
+    const [qty, setQty] = useState<FData | undefined>(undefined)
+
+    useDebounce(() => {
+        // if => not sending initial qty
+        if (qty && qty.qty !== undefined && qty.qty !== 0) setFData(qty)
+    }, 500)
+
     return (
         <>
             <NavBar setSearchInputValue={(value) => setSearchText(value)} />
@@ -127,7 +135,9 @@ function App() {
                 cartLoadingItems={storageLoading}
                 cartErrorItems={storageError}
                 cartItemDelete={setDeleteDataId}
-                cartItemUpdateQtyAndNote={setFData}
+                orderQty={qty}
+                cartItemUpdateQty={setQty}
+                cartItemUpdateNote={setFData}
             />
 
             <FoodList
@@ -139,7 +149,8 @@ function App() {
                 cartLoadingItems={storageLoading}
                 cartErrorItems={storageError}
                 cartItemDelete={setDeleteDataId}
-                cartItemUpdateQtyAndNote={setFData}
+                itemQty={qty}
+                setItemQty={setQty}
             />
 
             <Footer />

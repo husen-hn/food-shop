@@ -11,8 +11,9 @@ interface Props {
     cartData: { data: FData[]; subTotal: number }
     cartLoadingItems: boolean
     cartErrorItems: string
+    itemQty: FData | undefined
     cartItemDelete: (id: number) => void
-    cartItemUpdateQtyAndNote: (item: FData) => void
+    setItemQty: (item: FData) => void
 }
 
 function FoodList({
@@ -24,7 +25,8 @@ function FoodList({
     cartLoadingItems,
     cartErrorItems,
     cartItemDelete,
-    cartItemUpdateQtyAndNote
+    itemQty,
+    setItemQty
 }: Props) {
     const handleFoodItemClicked = useCallback(
         (value: FData) => {
@@ -67,8 +69,11 @@ function FoodList({
                             storageLoading={cartLoadingItems}
                             storageError={cartErrorItems}
                             cartItemDelete={handleCartItemDelete}
+                            itemQty={
+                                itemQty?.id === food.id ? itemQty.qty : food.qty
+                            }
                             setItemQty={(value: number) => {
-                                cartItemUpdateQtyAndNote({
+                                setItemQty({
                                     id: food.id,
                                     qty: value,
                                     orderNote: food.orderNote

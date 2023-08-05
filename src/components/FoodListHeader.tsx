@@ -19,7 +19,9 @@ interface Props {
     cartLoadingItems: boolean
     cartErrorItems: string
     cartItemDelete: (id: number) => void
-    cartItemUpdateQtyAndNote: (item: FData) => void
+    orderQty?: FData
+    cartItemUpdateQty: (item: FData) => void
+    cartItemUpdateNote: (item: FData) => void
 }
 
 function FoodListHeader({
@@ -37,7 +39,9 @@ function FoodListHeader({
     cartLoadingItems,
     cartErrorItems,
     cartItemDelete,
-    cartItemUpdateQtyAndNote
+    orderQty,
+    cartItemUpdateNote,
+    cartItemUpdateQty
 }: Props) {
     const [effect, setEffect] = useState(false)
 
@@ -88,7 +92,9 @@ function FoodListHeader({
                         loading={cartLoadingItems}
                         error={cartErrorItems}
                         cartItemDelete={handleCartItemDelete}
-                        updateOrderQtyAndNote={cartItemUpdateQtyAndNote}
+                        orderQty={orderQty}
+                        updateOrderQty={cartItemUpdateQty}
+                        updateOrderNote={cartItemUpdateNote}
                     />
                     <button
                         className={`${

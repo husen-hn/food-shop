@@ -18,7 +18,9 @@ interface Props {
     loading: boolean
     error: string | null
     cartItemDelete: (id: number) => void
-    updateOrderQtyAndNote: (item: FData) => void
+    orderQty?: FData
+    updateOrderQty: (item: FData) => void
+    updateOrderNote: (item: FData) => void
 }
 
 function ShoppingCard({
@@ -31,7 +33,9 @@ function ShoppingCard({
     loading,
     error,
     cartItemDelete,
-    updateOrderQtyAndNote
+    orderQty,
+    updateOrderQty,
+    updateOrderNote
 }: Props) {
     const ref = useRef<HTMLDivElement>(null)
 
@@ -123,19 +127,25 @@ function ShoppingCard({
                                                 }
                                                 order={order}
                                                 deleteClicked={cartItemDelete}
-                                                setOrderQty={(value) => {
-                                                    updateOrderQtyAndNote({
+                                                setOrderQty={(qty) => {
+                                                    updateOrderQty({
                                                         id: order.id,
-                                                        qty: value,
+                                                        qty: qty,
                                                         orderNote:
                                                             order.orderNote
                                                     } as FData)
                                                 }}
-                                                setOrderNote={(value) => {
-                                                    updateOrderQtyAndNote({
+                                                orderQty={
+                                                    orderQty &&
+                                                    orderQty?.id == order.id
+                                                        ? orderQty
+                                                        : order
+                                                }
+                                                setOrderNote={(note) => {
+                                                    updateOrderNote({
                                                         id: order.id,
                                                         qty: order.qty,
-                                                        orderNote: value
+                                                        orderNote: note
                                                     } as FData)
                                                 }}
                                             />

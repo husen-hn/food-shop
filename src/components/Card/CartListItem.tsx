@@ -7,14 +7,16 @@ import { useDebounce } from '../../hooks/useDebounce'
 interface Props {
     order: FData
     deleteClicked: (id: number) => void
-    setOrderQty: (value: number) => void
-    setOrderNote: (value: string) => void
+    setOrderQty: (qty: number) => void
+    orderQty: FData | undefined
+    setOrderNote: (note: string) => void
 }
 
 function CartListItems({
     order,
     deleteClicked,
     setOrderQty,
+    orderQty,
     setOrderNote
 }: Props) {
     const handleDeleteClicked = useCallback(
@@ -24,32 +26,25 @@ function CartListItems({
         [deleteClicked]
     )
     const handleSetOrderQty = useCallback(
-        (value: number) => {
-            setOrderQty(value)
+        (qty: number) => {
+            setOrderQty(qty)
         },
         [setOrderQty]
     )
     const handleSetOrderNote = useCallback(
-        (value: string) => {
-            setOrderNote(value)
+        (note: string) => {
+            setOrderNote(note)
         },
         [setOrderNote]
     )
 
     const { loading, error, image } = useImage({ imgName: order.image })
 
-    const [itemQty, setItemQty] = useState(order.qty)
-
-    useDebounce(() => {
-        // if => not sending initial qty
-        if (itemQty !== order.qty) handleSetOrderQty(itemQty)
-    }, 1000)
-
     const [itemOrderNote, setItemOrderNote] = useState(order.orderNote)
+
     useDebounce(() => {
-        // if => not sending initial qty
-        if (itemOrderNote !== order.orderNote) handleSetOrderNote(itemOrderNote)
-    }, 1000)
+        handleSetOrderNote(itemOrderNote)
+    }, 500)
 
     return (
         <li className="flex flex-col py-6">
@@ -80,19 +75,22 @@ function CartListItems({
                     <input
                         className="bg-gray dark:bg-lightGold focus:bg-gray text-sm text-center appearance-none border-[1px] border-gray dark:border-dark dark:border-2  focus:border-red rounded-md w-10 h-10 text-white dark:text-dark leading-tight focus:outline-none truncate"
                         placeholder="Qty"
-                        value={itemQty ?? 1}
+                        value={orderQty?.qty ?? 1}
                         onChange={(e) => {
                             if (
                                 Number(e.target.value) &&
                                 Number(e.target.value) > 0
-                            )
-                                setItemQty(Number(e.target.value))
+                            ) {
+                                handleSetOrderQty(Number(e.target.value))
+                            }
                         }}
                         type="number"
                     />
-                    <p className="text-white dark:text-dark font-bold p-2">
+                    <p className="w-12 text-white dark:text-dark font-bold p-2">
                         $
-                        {Number(order.qty * parseFloat(order.price)).toFixed(2)}
+                        {Number(
+                            orderQty?.qty ?? 1 * parseFloat(order.price)
+                        ).toFixed(2)}
                     </p>
                 </div>
             </div>
@@ -103,7 +101,9 @@ function CartListItems({
                     type="text"
                     placeholder="Order Note..."
                     value={itemOrderNote ?? ''}
-                    onChange={(e) => setItemOrderNote(e.target.value)}
+                    onChange={(e) => {
+                        setItemOrderNote(e.target.value)
+                    }}
                 />
 
                 <button

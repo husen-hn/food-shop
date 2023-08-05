@@ -15,6 +15,7 @@ interface Props {
     storageLoading: boolean
     storageError: string | null
     cartItemDelete: (id: number) => void
+    itemQty: number
     setItemQty: (qty: number) => void
 }
 
@@ -25,6 +26,7 @@ function FoodItem({
     storageLoading,
     storageError,
     cartItemDelete,
+    itemQty,
     setItemQty
 }: Props) {
     const { loading, error, image } = useImage({ imgName: item.image })
@@ -58,15 +60,8 @@ function FoodItem({
         [setItemQty]
     )
 
-    const [qty, setQty] = useState<number | undefined>(item.qty)
-    useDebounce(() => {
-        // if => not sending initial qty
-        if (qty !== item.qty && qty !== undefined && qty !== 0)
-            handleSetQty(qty)
-    }, 500)
-
-    if (handleBtnDisable() && qty === 0) {
-        setQty(1)
+    if (handleBtnDisable() && itemQty === 0) {
+        handleSetQty(1)
     }
 
     return (
@@ -106,7 +101,7 @@ function FoodItem({
                             <button
                                 className="text-red border-red font-bold border-2 rounded-md text-center justify-center text-lg mr-2 px-2"
                                 onClick={() => {
-                                    setQty(0)
+                                    handleSetQty(0)
                                     handleDeleteItem(item.id)
                                 }}
                             >
@@ -115,10 +110,10 @@ function FoodItem({
                             <input
                                 className="bg-gray dark:bg-lightGold focus:bg-gray text-sm text-center appearance-none border-[1px] border-gray dark:border-dark dark:border-2  focus:border-red rounded-md w-11 h-11 text-white dark:text-dark leading-tight focus:outline-none truncate"
                                 placeholder="Qty"
-                                value={qty}
+                                value={itemQty}
                                 onChange={(e) => {
                                     const value = Number(e.target.value)
-                                    if (value && value > 0) setQty(value)
+                                    if (value && value > 0) handleSetQty(value)
                                 }}
                                 type="number"
                             />

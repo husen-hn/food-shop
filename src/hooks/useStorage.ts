@@ -49,8 +49,6 @@ function useStorage({
                     )
 
                     if (fItemIndex !== -1 || fItemIndex === undefined) {
-                        console.log('update ' + data.qty)
-
                         // if item is available on cart update the qty and order note
                         const fItem = cartItems[fItemIndex]
 
@@ -64,7 +62,6 @@ function useStorage({
                             JSON.stringify([...cartItems])
                         )
                     } else {
-                        console.log('create not available ' + data.qty)
                         // if item is not available on cart
                         localStorage.setItem(
                             key,
@@ -79,7 +76,6 @@ function useStorage({
                         )
                     }
                 } else {
-                    console.log('create empty ' + data.qty)
                     // if Cart is empty
                     localStorage.setItem(
                         key,
