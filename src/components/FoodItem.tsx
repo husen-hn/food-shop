@@ -2,11 +2,10 @@ import useImage from '../hooks/useImage'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { FiAlertCircle } from 'react-icons/fi'
 import { FData } from '../hooks/useData'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { BiError } from 'react-icons/bi'
 import { AiOutlineDelete } from 'react-icons/ai'
 import Loading from './Loading'
-import { useDebounce } from '../hooks/useDebounce'
 
 interface Props {
     item: FData

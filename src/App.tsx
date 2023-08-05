@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 import FoodList from './components/FoodList'
 import NavBar from './components/NavBar'
