@@ -21,6 +21,7 @@ interface Props {
     cartItemDelete: (id: number) => void
     orderQty?: FData
     cartItemUpdateQty: (item: FData) => void
+    orderNote?: FData
     cartItemUpdateNote: (item: FData) => void
 }
 
@@ -39,6 +40,7 @@ function FoodListHeader({
     cartLoadingItems,
     cartErrorItems,
     cartItemDelete,
+    orderNote,
     orderQty,
     cartItemUpdateNote,
     cartItemUpdateQty
@@ -94,6 +96,7 @@ function FoodListHeader({
                         cartItemDelete={handleCartItemDelete}
                         orderQty={orderQty}
                         updateOrderQty={cartItemUpdateQty}
+                        orderNote={orderNote}
                         updateOrderNote={cartItemUpdateNote}
                     />
                     <button

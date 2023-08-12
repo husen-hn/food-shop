@@ -107,6 +107,16 @@ function App() {
         if (qty && qty.qty !== undefined && qty.qty !== 0) setFData(qty)
     }, 500)
 
+    const [itemOrderNote, setItemOrderNote] = useState<FData | undefined>(
+        undefined
+    )
+
+    useDebounce(() => {
+        // if => not sending initial orderNote
+        if (itemOrderNote && itemOrderNote.orderNote !== undefined)
+            setFData(itemOrderNote)
+    }, 500)
+
     return (
         <>
             <NavBar setSearchInputValue={(value) => setSearchText(value)} />
@@ -137,7 +147,8 @@ function App() {
                 cartItemDelete={setDeleteDataId}
                 orderQty={qty}
                 cartItemUpdateQty={setQty}
-                cartItemUpdateNote={setFData}
+                orderNote={itemOrderNote}
+                cartItemUpdateNote={setItemOrderNote}
             />
 
             <FoodList

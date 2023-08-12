@@ -1,8 +1,7 @@
 import { AiOutlineDelete } from 'react-icons/ai'
 import { FData } from '../../hooks/useData'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import useImage from '../../hooks/useImage'
-import { useDebounce } from '../../hooks/useDebounce'
 
 interface Props {
     order: FData
@@ -10,6 +9,7 @@ interface Props {
     setOrderQty: (qty: number) => void
     orderQty: FData | undefined
     setOrderNote: (note: string) => void
+    orderNote: FData | undefined
 }
 
 function CartListItems({
@@ -17,7 +17,8 @@ function CartListItems({
     deleteClicked,
     setOrderQty,
     orderQty,
-    setOrderNote
+    setOrderNote,
+    orderNote
 }: Props) {
     const handleDeleteClicked = useCallback(
         (value: number) => {
@@ -39,12 +40,6 @@ function CartListItems({
     )
 
     const { loading, error, image } = useImage({ imgName: order.image })
-
-    const [itemOrderNote, setItemOrderNote] = useState(order.orderNote)
-
-    useDebounce(() => {
-        handleSetOrderNote(itemOrderNote)
-    }, 500)
 
     return (
         <li className="flex flex-col py-6">
@@ -100,10 +95,8 @@ function CartListItems({
                     className="bg-gray px-2 dark:bg-lightGold focus:bg-gray appearance-none border-[1px] border-gray dark:border-dark dark:border-2  focus:border-red rounded-md w-full h-10 text-white dark:text-dark text-sm leading-tight focus:outline-none truncate"
                     type="text"
                     placeholder="Order Note..."
-                    value={itemOrderNote ?? ''}
-                    onChange={(e) => {
-                        setItemOrderNote(e.target.value)
-                    }}
+                    value={orderNote?.orderNote ?? ''}
+                    onChange={(e) => handleSetOrderNote(e.target.value)}
                 />
 
                 <button

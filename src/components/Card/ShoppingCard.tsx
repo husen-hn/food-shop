@@ -20,6 +20,7 @@ interface Props {
     cartItemDelete: (id: number) => void
     orderQty?: FData
     updateOrderQty: (item: FData) => void
+    orderNote?: FData
     updateOrderNote: (item: FData) => void
 }
 
@@ -35,6 +36,7 @@ function ShoppingCard({
     cartItemDelete,
     orderQty,
     updateOrderQty,
+    orderNote,
     updateOrderNote
 }: Props) {
     const ref = useRef<HTMLDivElement>(null)
@@ -148,6 +150,12 @@ function ShoppingCard({
                                                         orderNote: note
                                                     } as FData)
                                                 }}
+                                                orderNote={
+                                                    orderNote &&
+                                                    orderNote?.id == order.id
+                                                        ? orderNote
+                                                        : order
+                                                }
                                             />
                                         ))}
                                     </ul>
