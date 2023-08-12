@@ -104,7 +104,13 @@ function App() {
 
     useDebounce(() => {
         // if => not sending initial qty
-        if (qty && qty.qty !== undefined && qty.qty !== 0) setFData(qty)
+        if (qty && qty.qty !== undefined && qty.qty !== 0) {
+            // prevent infinit re-rendering with same value
+            const storageItem = storageData.find((item) => item.id === qty.id)
+            if (storageItem?.qty !== qty.qty) {
+                setFData(qty)
+            }
+        }
     }, 500)
 
     const [itemOrderNote, setItemOrderNote] = useState<FData | undefined>(
@@ -113,9 +119,18 @@ function App() {
 
     useDebounce(() => {
         // if => not sending initial orderNote
-        if (itemOrderNote && itemOrderNote.orderNote !== undefined)
-            setFData(itemOrderNote)
+        if (itemOrderNote && itemOrderNote.orderNote !== undefined) {
+            // prevent infinit re-rendering with same value
+            const storageItem = storageData.find(
+                (item) => item.id === itemOrderNote.id
+            )
+            if (storageItem?.orderNote !== itemOrderNote.orderNote) {
+                setFData(itemOrderNote)
+            }
+        }
     }, 500)
+
+    console.log('a')
 
     return (
         <>
