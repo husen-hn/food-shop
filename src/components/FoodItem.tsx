@@ -99,10 +99,7 @@ function FoodItem({
                         <div className="flex mr-2">
                             <button
                                 className="text-red border-red font-bold border-2 rounded-md text-center justify-center text-lg mr-2 px-2"
-                                onClick={() => {
-                                    handleSetQty(0)
-                                    handleDeleteItem(item.id)
-                                }}
+                                onClick={() => handleDeleteItem(item.id)}
                             >
                                 <AiOutlineDelete />
                             </button>

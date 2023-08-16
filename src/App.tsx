@@ -67,6 +67,9 @@ function App() {
         resetDeleteData: () => setDeleteDataId(undefined)
     })
 
+    console.log('App deleteDataId: ' + deleteDataId)
+    console.log('App fData: ' + fData)
+
     const getCartStorageData = (
         fakeData: FData[],
         storageData: FData[]
@@ -129,8 +132,6 @@ function App() {
             }
         }
     }, 500)
-
-    console.log('a')
 
     return (
         <>
