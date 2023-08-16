@@ -69,7 +69,7 @@ function ShoppingCard({
                     className={`animate-fade-left fixed inset-0 backdrop-blur-sm z-10`}
                 >
                     <div
-                        className="bg-dark w-1/3 h-screen absolute right-0 overflow-y-scroll flex flex-col"
+                        className="bg-dark dark:bg-gold w-full md:w-1/2 lg:w-1/3 h-screen absolute right-0 overflow-y-scroll flex flex-col"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* header */}

@@ -73,8 +73,8 @@ function FoodListHeader({
 
     return (
         <div className="flex flex-col mt-10 ml-10 mr-10">
-            <div className="flex flex-row mb-20 items-center justify-between">
-                <h1 className="text-white dark:text-dark sm:text-lg md:text-2xl mt-5">
+            <div className="flex flex-col sm:flex-row mb-20 items-center justify-between">
+                <h1 className="text-white dark:text-dark pb-8 text-lg md:text-2xl font-bold mt-5">
                     Choose Dishes
                 </h1>
 
