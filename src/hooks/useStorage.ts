@@ -29,8 +29,6 @@ function useStorage({
         try {
             const cartItems = JSON.parse(localStorage.getItem(key) ?? '[]')
 
-            console.log('deleteDataId: ' + deleteDataId)
-            console.log('fData: ' + data?.id)
             if (deleteDataId) {
                 // start to delete items
                 if (cartItems.length !== 0) {

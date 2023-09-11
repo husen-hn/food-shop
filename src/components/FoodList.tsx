@@ -1,46 +1,21 @@
-import { useCallback } from 'react'
+import { useFoodListContext } from '../context/foodListContext'
 import { FData } from '../hooks/useData'
 import FoodItem from './FoodItem'
 import FoodItemSkeleton from './FoodItemSkeleton'
 
-interface Props {
-    data: FData[]
-    error: string
-    loading: boolean
-    foodItemClicked: (item: FData) => void
-    cartData: { data: FData[]; subTotal: number }
-    cartLoadingItems: boolean
-    cartErrorItems: string
-    itemQty: FData | undefined
-    cartItemDelete: (id: number) => void
-    setItemQty: (item: FData) => void
-}
-
-function FoodList({
-    data,
-    error,
-    loading,
-    foodItemClicked,
-    cartData,
-    cartLoadingItems,
-    cartErrorItems,
-    cartItemDelete,
-    itemQty,
-    setItemQty
-}: Props) {
-    const handleFoodItemClicked = useCallback(
-        (value: FData) => {
-            foodItemClicked(value)
-        },
-        [foodItemClicked]
-    )
-
-    const handleCartItemDelete = useCallback(
-        (value: number) => {
-            cartItemDelete(value)
-        },
-        [cartItemDelete]
-    )
+function FoodList() {
+    const {
+        data,
+        error,
+        loading,
+        cartData,
+        foodItemClicked,
+        cartLoadingItems,
+        cartErrorItems,
+        cartItemDelete,
+        itemQty,
+        setItemQty
+    } = useFoodListContext()
 
     return (
         <div className="flex flex-col m-10">
@@ -65,10 +40,10 @@ function FoodList({
                             key={food.title + food.price + food.inventory}
                             item={food}
                             cartItems={cartData.data}
-                            itemClicked={handleFoodItemClicked}
+                            itemClicked={foodItemClicked}
                             storageLoading={cartLoadingItems}
                             storageError={cartErrorItems}
-                            cartItemDelete={handleCartItemDelete}
+                            cartItemDelete={cartItemDelete}
                             itemQty={
                                 itemQty?.id === food.id ? itemQty.qty : food.qty
                             }

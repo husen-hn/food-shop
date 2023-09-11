@@ -3,15 +3,19 @@ import './App.css'
 import FoodList from './components/FoodList'
 import NavBar from './components/NavBar'
 import Tabs from './components/Tab/Tabs'
-import { Category } from './utils/category'
+import { Category } from './services/category'
 import Footer from './components/Footer'
 import useData, { FData } from './hooks/useData'
-import fake_data from './data/fake_data'
-import { Type } from './utils/type'
+import fake_data from './services/data/fake_data'
+import { Type } from './services/type'
 import useDarkSide from './hooks/useDarkSide'
 import useStorage from './hooks/useStorage'
 import FoodListHeader from './components/FoodListHeader'
 import { useDebounce } from './hooks/useDebounce'
+import { NavBarContext } from './context/navBarContext'
+import { TabsContext } from './context/tabsContext'
+import { FoodListHeaderContext } from './context/foodListHeaderContext'
+import { FoodListContext } from './context/foodListContext'
 
 function App() {
     const foodCategories: string[] = (
@@ -66,9 +70,6 @@ function App() {
         resetData: () => setFData(undefined),
         resetDeleteData: () => setDeleteDataId(undefined)
     })
-
-    console.log('App deleteDataId: ' + deleteDataId)
-    console.log('App fData: ' + fData)
 
     const getCartStorageData = (
         fakeData: FData[],
@@ -135,50 +136,68 @@ function App() {
 
     return (
         <>
-            <NavBar setSearchInputValue={(value) => setSearchText(value)} />
-
-            <Tabs
-                categories={foodCategories}
-                selectedTab={selectedTab}
-                tabSelection={(index) => {
-                    setSelectedTab(foodCategories[index])
-                    setFoodType(foodTypes[0])
+            <NavBarContext.Provider
+                value={{
+                    setSearchInputValue: (value) => setSearchText(value)
                 }}
-            />
+            >
+                <NavBar />
+            </NavBarContext.Provider>
 
-            <FoodListHeader
-                foodTypes={foodTypes}
-                foodTypeSelected={foodType}
-                foodTypeSelection={(value) => setFoodType(value)}
-                isDarkMode={colorTheme === 'light' ? false : true}
-                toogleDarkMode={() => handleTheme()}
-                cartData={getCartStorageData(fake_data, storageData)}
-                cartDisplay={cartDisplay}
-                setCartDisplay={setCartDisplay}
-                selectedCartFilterIndex={selectedCartFilter}
-                setCartFilterTab={setCartFilterTab}
-                cartFilters={cartFilters}
-                cartLoadingItems={storageLoading}
-                cartErrorItems={storageError}
-                cartItemDelete={setDeleteDataId}
-                orderQty={qty}
-                cartItemUpdateQty={setQty}
-                orderNote={itemOrderNote}
-                cartItemUpdateNote={setItemOrderNote}
-            />
+            <TabsContext.Provider
+                value={{
+                    categories: foodCategories,
+                    selectedTab: selectedTab,
+                    tabSelection: (index) => {
+                        setSelectedTab(foodCategories[index])
+                        setFoodType(foodTypes[0])
+                    }
+                }}
+            >
+                <Tabs />
+            </TabsContext.Provider>
 
-            <FoodList
-                data={data}
-                error={error}
-                loading={loading}
-                foodItemClicked={setFData}
-                cartData={getCartStorageData(fake_data, storageData)}
-                cartLoadingItems={storageLoading}
-                cartErrorItems={storageError}
-                cartItemDelete={setDeleteDataId}
-                itemQty={qty}
-                setItemQty={setQty}
-            />
+            <FoodListHeaderContext.Provider
+                value={{
+                    foodTypes,
+                    foodTypeSelected: foodType,
+                    foodTypeSelection: (value) => setFoodType(value),
+                    isDarkMode: colorTheme === 'light' ? false : true,
+                    togleDarkMode: () => handleTheme(),
+                    cartData: getCartStorageData(fake_data, storageData),
+                    cartDisplay: cartDisplay,
+                    setCartDisplay: setCartDisplay,
+                    selectedCartFilterIndex: selectedCartFilter,
+                    setCartFilterTab: setCartFilterTab,
+                    cartFilters: cartFilters,
+                    cartLoadingItems: storageLoading,
+                    cartErrorItems: storageError,
+                    cartItemDelete: setDeleteDataId,
+                    orderQty: qty,
+                    cartItemUpdateQty: setQty,
+                    orderNote: itemOrderNote,
+                    cartItemUpdateNote: setItemOrderNote
+                }}
+            >
+                <FoodListHeader />
+            </FoodListHeaderContext.Provider>
+
+            <FoodListContext.Provider
+                value={{
+                    data,
+                    error,
+                    loading,
+                    foodItemClicked: setFData,
+                    cartData: getCartStorageData(fake_data, storageData),
+                    cartLoadingItems: storageLoading,
+                    cartErrorItems: storageError,
+                    cartItemDelete: setDeleteDataId,
+                    itemQty: qty,
+                    setItemQty: setQty
+                }}
+            >
+                <FoodList />
+            </FoodListContext.Provider>
 
             <Footer />
         </>

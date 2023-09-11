@@ -1,38 +1,15 @@
-import { useCallback } from 'react'
 import TabTitle from './TabTitle'
+import { useTabsContext } from '../../context/tabsContext'
 
-type Props = {
-    categories: string[]
-    selectedTab: string
-    tabSelection: (index: number) => void
-}
-
-const Tabs = ({
-    categories,
-    selectedTab,
-    tabSelection
-}: Props): JSX.Element => {
-    const handleTabSelection = useCallback(
-        (index: number) => {
-            tabSelection(index)
-        },
-        [tabSelection]
-    )
+const Tabs = (): JSX.Element => {
+    const { categories } = useTabsContext()
 
     return (
         <>
             <div className="h-6 my-6 hide-scrollbar scroll-auto">
                 <ul className="flex flex-row mx-10 overflow-x-auto">
                     {categories.map((item, index) => (
-                        <TabTitle
-                            key={item + 'Tabs'}
-                            title={item}
-                            index={index}
-                            isActive={categories[index] === selectedTab}
-                            setSelectedTab={(index) =>
-                                handleTabSelection(index)
-                            }
-                        />
+                        <TabTitle key={item + 'Tabs'} index={index} />
                     ))}
                 </ul>
             </div>
