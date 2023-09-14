@@ -1,11 +1,21 @@
-import { useTabsContext } from '../../context/tabsContext'
+import { useCallback } from 'react'
 
 export type Props = {
+    title: string
     index: number
+    setSelectedTab: (index: number) => void
+    isActive?: boolean
 }
 
-const TabTitle = ({ index }: Props): JSX.Element => {
-    const { categories, selectedTab, tabSelection } = useTabsContext()
+const TabTitle = ({
+    title,
+    setSelectedTab,
+    index,
+    isActive
+}: Props): JSX.Element => {
+    const handleOnClick = useCallback(() => {
+        setSelectedTab(index)
+    }, [setSelectedTab, index])
 
     const activeStyle = 'text-red font-bold'
     const normalStyle = 'text-white dark:text-dark'
@@ -13,23 +23,19 @@ const TabTitle = ({ index }: Props): JSX.Element => {
         <>
             <li
                 className={`${
-                    categories[index] === selectedTab
-                        ? activeStyle
-                        : normalStyle
+                    isActive ? activeStyle : normalStyle
                 } flex  flex-col pb-3 pl-6`}
-                key={categories[index] + 'TabTitle'}
+                key={title + 'TabTitle'}
             >
                 <button
-                    onClick={() => tabSelection(index)}
+                    onClick={handleOnClick}
                     className="w-24 line-clamp-1 text-start"
                 >
-                    {categories[index]}
+                    {title}
                 </button>
                 <div
                     className={`${
-                        categories[index] === selectedTab
-                            ? 'animate-fade-in-left bg-red'
-                            : 'hidden'
+                        isActive ? 'animate-fade-in-left bg-red' : 'hidden'
                     } mt-3 w-20 h-1  rounded-lg`}
                 ></div>
             </li>

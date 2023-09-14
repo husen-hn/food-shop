@@ -10,7 +10,8 @@ import Loading from './Loading'
 interface Props {
     item: FData
     cartItems: FData[]
-    itemClicked: (item: FData) => void
+    itemSelectClicked: (item: FData) => void
+    itemRecipeClicked: (item: FData) => void
     storageLoading: boolean
     storageError: string | null
     cartItemDelete: (id: number) => void
@@ -21,7 +22,8 @@ interface Props {
 function FoodItem({
     item,
     cartItems,
-    itemClicked,
+    itemSelectClicked,
+    itemRecipeClicked,
     storageLoading,
     storageError,
     cartItemDelete,
@@ -30,11 +32,18 @@ function FoodItem({
 }: Props) {
     const { loading, error, image } = useImage({ imgName: item.image })
 
-    const handleItemClick = useCallback(
+    const handleItemSelectClick = useCallback(
         (item: FData) => {
-            itemClicked(item)
+            itemSelectClicked(item)
         },
-        [itemClicked]
+        [itemSelectClicked]
+    )
+
+    const handleItemRecipeClick = useCallback(
+        (item: FData) => {
+            itemRecipeClicked(item)
+        },
+        [itemRecipeClicked]
     )
 
     const handleBtnDisable = (): boolean => {
@@ -117,13 +126,16 @@ function FoodItem({
                     ) : (
                         <button
                             className="mr-2 text-red dark:text-gray text-md p-2 border-2 border-gray rounded-md flex items-center gap-3 px-3 text-center"
-                            onClick={() => handleItemClick(item)}
+                            onClick={() => handleItemSelectClick(item)}
                         >
                             <AiOutlinePlus /> Select
                         </button>
                     )}
 
-                    <button className="text-grayLight text-md p-2 border-2 border-gray rounded-md flex items-center gap-3 px-3 text-center">
+                    <button
+                        className="text-grayLight text-md p-2 border-2 border-gray rounded-md flex items-center gap-3 px-3 text-center"
+                        onClick={() => handleItemRecipeClick(item)}
+                    >
                         <FiAlertCircle /> Recipe
                     </button>
                 </div>

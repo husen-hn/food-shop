@@ -9,7 +9,6 @@ function FoodListHeader() {
         foodTypes,
         togleDarkMode,
         isDarkMode,
-        foodTypeSelected,
         foodTypeSelection,
         cartData,
         cartDisplay,
@@ -37,8 +36,7 @@ function FoodListHeader() {
                 <div className="inline-flex justify-center">
                     <DropDown
                         options={foodTypes.map((key) => key)}
-                        selected={foodTypeSelected}
-                        setSelected={(value) => foodTypeSelection(value)}
+                        selectedItem={(value) => foodTypeSelection(value)}
                     />
                     <ShoppingCard
                         data={cartData}

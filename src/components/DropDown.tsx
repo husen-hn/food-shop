@@ -1,14 +1,22 @@
-import { useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { useOutsideClick } from '../hooks/useOutsideClick'
 
 interface Props {
     options: string[]
-    selected: string
-    setSelected: (value: string) => void
+    selectedItem: (value: string) => void
 }
 
-function DropDown({ options, selected, setSelected }: Props) {
-    const [dpDisplay, setDpDisplay] = useState(false)
+function DropDown({ options, selectedItem }: Props) {
+    const [selected, setSelected] = useState<string>(options[0])
+
+    const handleSelectedChange = useCallback(
+        (option: string) => {
+            selectedItem(option)
+        },
+        [selected, selectedItem]
+    )
+
+    const [dpDisplay, setDpDisplay] = useState<boolean>(false)
     const ref = useRef<HTMLDivElement>(null)
 
     useOutsideClick(ref, () => {
@@ -55,6 +63,7 @@ function DropDown({ options, selected, setSelected }: Props) {
                                     onClick={(e) => {
                                         e.preventDefault()
                                         setSelected(option)
+                                        handleSelectedChange(option)
                                     }}
                                 >
                                     {option}

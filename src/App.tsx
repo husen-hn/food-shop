@@ -160,7 +160,6 @@ function App() {
             <FoodListHeaderContext.Provider
                 value={{
                     foodTypes,
-                    foodTypeSelected: foodType,
                     foodTypeSelection: (value) => setFoodType(value),
                     isDarkMode: colorTheme === 'light' ? false : true,
                     togleDarkMode: () => handleTheme(),

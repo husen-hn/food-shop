@@ -2,14 +2,20 @@ import TabTitle from './TabTitle'
 import { useTabsContext } from '../../context/tabsContext'
 
 const Tabs = (): JSX.Element => {
-    const { categories } = useTabsContext()
+    const { categories, selectedTab, tabSelection } = useTabsContext()
 
     return (
         <>
             <div className="h-6 my-6 hide-scrollbar scroll-auto">
                 <ul className="flex flex-row mx-10 overflow-x-auto">
                     {categories.map((item, index) => (
-                        <TabTitle key={item + 'Tabs'} index={index} />
+                        <TabTitle
+                            key={item + 'Tabs'}
+                            title={item}
+                            index={index}
+                            isActive={categories[index] === selectedTab}
+                            setSelectedTab={(index) => tabSelection(index)}
+                        />
                     ))}
                 </ul>
             </div>

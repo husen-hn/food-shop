@@ -40,7 +40,8 @@ function FoodList() {
                             key={food.title + food.price + food.inventory}
                             item={food}
                             cartItems={cartData.data}
-                            itemClicked={foodItemClicked}
+                            itemSelectClicked={foodItemClicked}
+                            itemRecipeClicked={() => null}
                             storageLoading={cartLoadingItems}
                             storageError={cartErrorItems}
                             cartItemDelete={cartItemDelete}

@@ -3,7 +3,6 @@ import { FData } from '../hooks/useData'
 
 type FoodListHeader = {
     foodTypes: string[]
-    foodTypeSelected: string
     foodTypeSelection: (value: string) => void
     isDarkMode: boolean
     togleDarkMode: () => void
