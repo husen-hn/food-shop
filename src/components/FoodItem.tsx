@@ -6,6 +6,7 @@ import { useCallback } from 'react'
 import { BiError } from 'react-icons/bi'
 import { AiOutlineDelete } from 'react-icons/ai'
 import Loading from './Loading'
+import { Link } from 'react-router-dom'
 
 interface Props {
     item: FData
@@ -132,12 +133,14 @@ function FoodItem({
                         </button>
                     )}
 
-                    <button
-                        className="text-grayLight text-md p-2 border-2 border-gray rounded-md flex items-center gap-3 px-3 text-center"
-                        onClick={() => handleItemRecipeClick(item)}
-                    >
-                        <FiAlertCircle /> Recipe
-                    </button>
+                    <Link to={`/${item.title}`}>
+                        <button
+                            className="text-grayLight text-md p-2 border-2 border-gray rounded-md flex items-center gap-3 px-3 text-center"
+                            onClick={() => handleItemRecipeClick(item)}
+                        >
+                            <FiAlertCircle /> Recipe
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

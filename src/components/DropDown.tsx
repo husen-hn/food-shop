@@ -4,16 +4,15 @@ import { useOutsideClick } from '../hooks/useOutsideClick'
 interface Props {
     options: string[]
     selectedItem: (value: string) => void
+    item: string
 }
 
-function DropDown({ options, selectedItem }: Props) {
-    const [selected, setSelected] = useState<string>(options[0])
-
+function DropDown({ options, selectedItem, item }: Props) {
     const handleSelectedChange = useCallback(
         (option: string) => {
             selectedItem(option)
         },
-        [selected, selectedItem]
+        [selectedItem]
     )
 
     const [dpDisplay, setDpDisplay] = useState<boolean>(false)
@@ -62,7 +61,6 @@ function DropDown({ options, selectedItem }: Props) {
                                     className="block px-4 py-2 text-sm rounded-lg hover:bg-gray dark:hover:bg-darkGold"
                                     onClick={(e) => {
                                         e.preventDefault()
-                                        setSelected(option)
                                         handleSelectedChange(option)
                                     }}
                                 >
@@ -77,7 +75,8 @@ function DropDown({ options, selectedItem }: Props) {
                 href="#"
                 className="px-3 py-3 text-white dark:text-dark font-bold text-sm rounded-lg"
             >
-                {selected}
+                {/* {selected} */}
+                {item}
             </a>
         </div>
     )

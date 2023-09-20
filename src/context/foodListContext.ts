@@ -12,6 +12,23 @@ type FoodList = {
     itemQty: FData | undefined
     cartItemDelete: (id: number) => void
     setItemQty: (item: FData) => void
+    foodCategories: string[]
+    selectedTab: string
+    tabSelection: (index: number) => void
+    foodTypes: string[]
+    foodType: string
+    foodTypeSelection: (value: string) => void
+    colorTheme: string
+    toogleDarkMode: () => void
+    cartDisplay: boolean
+    setCartDisplay: (value: boolean) => void
+    selectedCartFilterIndex: number
+    setCartFilterIndexTab: (value: number) => void
+    cartFilters: string[]
+    storageLoading: boolean
+    storageError: string
+    itemOrderNote: FData | undefined
+    cartItemUpdateNote: (value: FData | undefined) => void
 }
 
 export const FoodListContext = createContext<FoodList | undefined>(undefined)

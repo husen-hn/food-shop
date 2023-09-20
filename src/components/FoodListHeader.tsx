@@ -7,14 +7,15 @@ import { useFoodListHeaderContext } from '../context/foodListHeaderContext'
 function FoodListHeader() {
     const {
         foodTypes,
-        togleDarkMode,
+        foodType,
+        toogleDarkMode,
         isDarkMode,
         foodTypeSelection,
         cartData,
         cartDisplay,
         setCartDisplay,
         selectedCartFilterIndex,
-        setCartFilterTab,
+        setCartFilterIndexTab,
         cartFilters,
         cartLoadingItems,
         cartErrorItems,
@@ -37,13 +38,14 @@ function FoodListHeader() {
                     <DropDown
                         options={foodTypes.map((key) => key)}
                         selectedItem={(value) => foodTypeSelection(value)}
+                        item={foodType}
                     />
                     <ShoppingCard
                         data={cartData}
                         cartDisplay={cartDisplay}
                         setCartDisplay={setCartDisplay}
                         selectedFilterIndex={selectedCartFilterIndex}
-                        setFilterTab={setCartFilterTab}
+                        setFilterTab={setCartFilterIndexTab}
                         filters={cartFilters}
                         loading={cartLoadingItems}
                         error={cartErrorItems}
@@ -58,7 +60,7 @@ function FoodListHeader() {
                             effect && 'animate-wiggle'
                         } ml-1 inline-flex items-center justify-center h-full pl-2 bg-dark dark:bg-gold text-xl text-white dark:text-dark p-2 py-[11px] border-2 border-gray rounded-md`}
                         onClick={() => {
-                            togleDarkMode()
+                            toogleDarkMode()
                             setEffect(true)
                         }}
                         onAnimationEnd={() => setEffect(false)}

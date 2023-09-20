@@ -3,14 +3,15 @@ import { FData } from '../hooks/useData'
 
 type FoodListHeader = {
     foodTypes: string[]
+    foodType: string
     foodTypeSelection: (value: string) => void
     isDarkMode: boolean
-    togleDarkMode: () => void
+    toogleDarkMode: () => void
     cartData: { data: FData[]; subTotal: number }
     cartDisplay: boolean
     setCartDisplay: (value: boolean) => void
     selectedCartFilterIndex: number
-    setCartFilterTab: (value: number) => void
+    setCartFilterIndexTab: (value: number) => void
     cartFilters: string[]
     cartLoadingItems: boolean
     cartErrorItems: string
