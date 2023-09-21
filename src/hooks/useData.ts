@@ -4,6 +4,7 @@ export interface FData {
     id: number
     image: string
     title: string
+    slug: string
     price: string
     inventory: number
     categories: string[]
